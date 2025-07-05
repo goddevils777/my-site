@@ -56,6 +56,7 @@
     }
 
  /* Верхняя часть */
+       /* Верхняя часть */
         .header {
             position: fixed;
             top: 80px;
@@ -64,9 +65,13 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            z-index: 100;
+            z-index: 1001; /* Увеличили z-index */
             width: auto;
             white-space: nowrap;
+            background: rgba(245, 245, 245, 0.9); /* Добавили полупрозрачный фон */
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
         }
 
         .emoji {
@@ -79,16 +84,36 @@
             color: #333;
         }
 
-    .main {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        max-width: 100vw;
-        padding: 0 20px;
-        box-sizing: border-box;
-    }
+ .main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 100vw;
+            padding: 0 20px;
+            box-sizing: border-box;
+            margin-top: 40px; /* Отступ для хедера */
+        }
+        
+      /* Стили для четвертого слайда */
+        .skills-content {
+            max-width: 1400px;
+            width: 100%;
+            margin-top: 200px; /* Увеличили отступ */
+            position: relative;
+            z-index: 1;
+        }
+        
+        .skills-title {
+            font-size: 80px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
 
     .hello-text {
         font-size: 120px;
@@ -659,6 +684,110 @@
             padding: 0 5px;
         }
     }
+
+    @media (max-width: 768px) {
+            .main {
+                margin-top: 30px;
+            }
+            
+            .skills-content {
+                margin-top: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main {
+                margin-top: 20px;
+            }
+            
+            .skills-content {
+                margin-top: 120px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .main {
+                margin-top: 15px;
+            }
+            
+            .skills-content {
+                margin-top: 100px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .main {
+                margin-top: 10px;
+            }
+            
+            .skills-content {
+                margin-top: 90px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                top: 60px;
+                padding: 8px 16px;
+            }
+            
+            .skills-content {
+                margin-top: 160px; /* Увеличили отступ */
+            }
+            
+            .skills-title {
+                font-size: 45px;
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                top: 50px;
+                padding: 6px 12px;
+            }
+            
+            .skills-content {
+                margin-top: 140px; /* Увеличили отступ */
+            }
+            
+            .skills-title {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header {
+                top: 40px;
+                padding: 5px 10px;
+            }
+            
+            .skills-content {
+                margin-top: 120px; /* Увеличили отступ */
+            }
+            
+            .skills-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .header {
+                top: 30px;
+                padding: 4px 8px;
+            }
+            
+            .skills-content {
+                margin-top: 100px; /* Увеличили отступ */
+            }
+            
+            .skills-title {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+        }
 
         
   
