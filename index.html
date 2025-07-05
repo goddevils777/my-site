@@ -359,9 +359,9 @@
             width: 100%;
             height: 100%;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Изменено с center на flex-start */
             justify-content: center;
-            padding: 120px 20px 20px 20px; /* Большой отступ сверху */
+            padding: 80px 20px 100px 20px; /* Уменьшенный верхний отступ */
         }
         
         .skills-content-wrapper {
@@ -385,10 +385,132 @@
             padding: 0 40px;
         }
 
-    /* Адаптивность */
+    /* НОВЫЕ СТИЛИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ СЛАЙДА С НАВЫКАМИ */
+    @media (max-width: 768px) {
+        .skills-main {
+            padding: 70px 15px 80px 15px;
+            align-items: flex-start;
+            overflow-y: auto;
+        }
+        
+        .skills-content-wrapper {
+            margin-top: 0;
+        }
+        
+        .skills-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+        
+        .skills-grid {
+            grid-template-columns: 1fr;
+            gap: 0;
+            padding: 0;
+        }
+        
+        .skill-column {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .skill-column h3 {
+            font-size: 18px;
+            color: #4285f4;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .skill-column h3:before {
+            content: '▶';
+            font-size: 14px;
+        }
+        
+        .skill-column p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 0;
+            padding-left: 22px;
+        }
+        
+        /* Компактный режим для маленьких экранов */
+        .skill-column p br {
+            display: none;
+        }
+        
+        .skill-column p {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-column p:before {
+            content: '';
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .skills-main {
+            padding: 60px 10px 70px 10px;
+        }
+        
+        .skills-title {
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+        
+        .skill-column {
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .skill-column h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .skill-column p {
+            font-size: 13px;
+            padding-left: 20px;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .skills-main {
+            padding: 50px 8px 60px 8px;
+        }
+        
+        .skills-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .skill-column {
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .skill-column h3 {
+            font-size: 15px;
+        }
+        
+        .skill-column p {
+            font-size: 12px;
+            line-height: 1.6;
+        }
+    }
+
+    /* Адаптивность для остальных элементов */
     @media (max-width: 768px) {
            .header {
-                top: 60px;
+                top: 15px;
                 gap: 8px;
             }
             
@@ -432,29 +554,6 @@
             width: 60px;
             height: 60px;
             font-size: 20px;
-        }
-
-        .skills-content {
-            margin-top: 120px;
-        }
-
-        .skills-title {
-            font-size: 45px;
-            margin-bottom: 40px;
-        }
-
-        .skills-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            padding: 0 20px;
-        }
-
-        .skill-column h3 {
-            font-size: 18px;
-        }
-
-        .skill-column p {
-            font-size: 14px;
         }
 
         .project-content {
@@ -503,7 +602,7 @@
 
     @media (max-width: 480px) {
            .header {
-                top: 50px;
+                top: 12px;
                 gap: 6px;
             }
             
@@ -523,19 +622,6 @@
             font-size: 32px;
             line-height: 1.3;
             padding: 0 15px;
-        }
-
-        .skills-grid {
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .skills-content {
-            margin-top: 100px;
-        }
-
-        .skills-title {
-            font-size: 32px;
         }
 
         .project-number {
@@ -576,7 +662,7 @@
 
     @media (max-width: 360px) {
          .header {
-                top: 40px;
+                top: 10px;
                 gap: 5px;
             }
             
@@ -597,31 +683,6 @@
             font-size: 24px;
             line-height: 1.2;
             padding: 0 10px;
-        }
-
-        .skills-content {
-            margin-top: 80px;
-        }
-
-        .skills-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .skills-grid {
-            grid-template-columns: 1fr;
-            gap: 15px;
-            padding: 0 15px;
-        }
-
-        .skill-column h3 {
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .skill-column p {
-            font-size: 13px;
-            line-height: 1.4;
         }
 
         .project-number {
@@ -651,7 +712,7 @@
 
     @media (max-width: 320px) {
         .header {
-                top: 30px;
+                top: 8px;
                 gap: 4px;
             }
             
@@ -672,30 +733,6 @@
             font-size: 20px;
             line-height: 1.1;
             padding: 0 5px;
-        }
-
-        .skills-content {
-            margin-top: 70px;
-        }
-
-        .skills-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-
-        .skills-grid {
-            padding: 0 10px;
-            gap: 10px;
-        }
-
-        .skill-column h3 {
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        .skill-column p {
-            font-size: 12px;
-            line-height: 1.3;
         }
 
         .project-number {
@@ -737,224 +774,6 @@
             padding: 0 5px;
         }
     }
-
-    @media (max-width: 768px) {
-            .main {
-                margin-top: 30px;
-            }
-            
-            .skills-content {
-                margin-top: 140px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main {
-                margin-top: 20px;
-            }
-            
-            .skills-content {
-                margin-top: 120px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .main {
-                margin-top: 15px;
-            }
-            
-            .skills-content {
-                margin-top: 100px;
-            }
-        }
-
-        @media (max-width: 320px) {
-            .main {
-                margin-top: 10px;
-            }
-            
-            .skills-content {
-                margin-top: 90px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                top: 60px;
-                padding: 8px 16px;
-            }
-            
-            .skills-content {
-                margin-top: 160px; /* Увеличили отступ */
-            }
-            
-            .skills-title {
-                font-size: 45px;
-                margin-bottom: 40px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                top: 50px;
-                padding: 6px 12px;
-            }
-            
-            .skills-content {
-                margin-top: 140px; /* Увеличили отступ */
-            }
-            
-            .skills-title {
-                font-size: 32px;
-                margin-bottom: 30px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .header {
-                top: 40px;
-                padding: 5px 10px;
-            }
-            
-            .skills-content {
-                margin-top: 120px; /* Увеличили отступ */
-            }
-            
-            .skills-title {
-                font-size: 24px;
-                margin-bottom: 20px;
-            }
-        }
-
-        @media (max-width: 320px) {
-            .header {
-                top: 30px;
-                padding: 4px 8px;
-            }
-            
-            .skills-content {
-                margin-top: 100px; /* Увеличили отступ */
-            }
-            
-            .skills-title {
-                font-size: 20px;
-                margin-bottom: 15px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                padding-top: 100px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .slide {
-                padding-top: 90px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .slide {
-                padding-top: 80px;
-            }
-        }
-
-        @media (max-width: 320px) {
-            .slide {
-                padding-top: 70px;
-            }
-        }
-  
-        @media (max-width: 768px) {
-            .header {
-                top: 15px;
-            }
-            
-            .skills-content {
-                margin-top: 80px; /* Увеличенный отступ */
-            }
-            
-            .skills-title {
-                font-size: 32px; /* Сразу маленький размер */
-                margin-bottom: 30px;
-                padding-top: 40px; /* Большой отступ сверху */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                top: 10px;
-            }
-            
-            .skills-content {
-                margin-top: 60px;
-            }
-            
-            .skills-title {
-                font-size: 24px;
-                padding-top: 50px; /* Еще больше отступ */
-                margin-bottom: 25px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .skills-content {
-                margin-top: 40px;
-            }
-            
-            .skills-title {
-                font-size: 20px;
-                padding-top: 60px; /* Максимальный отступ */
-                margin-bottom: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .skills-main {
-                padding: 100px 15px 20px 15px;
-            }
-            
-            .skills-title {
-                font-size: 32px;
-                margin-bottom: 40px;
-            }
-            
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-                padding: 0 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .skills-main {
-                padding: 90px 10px 20px 10px;
-            }
-            
-            .skills-title {
-                font-size: 24px;
-                margin-bottom: 30px;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 0 10px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .skills-main {
-                padding: 80px 5px 20px 5px;
-            }
-            
-            .skills-title {
-                font-size: 20px;
-                margin-bottom: 25px;
-            }
-        }
-
 
     </style>
 </head>
@@ -1001,46 +820,48 @@
     
         </div>
 
-        <!-- Слайд 4 -->
+        <!-- Слайд 4 - ИСПРАВЛЕННЫЙ -->
         <div class="slide" id="slide4">
             <div class="header">
                 <span class="emoji">😇</span>
                 <span class="text">God & Devils</span>
                 <span class="emoji">😈</span>
             </div>
-            <div class="main skills-content">
-                <h1 class="skills-title">БАЗОВЫЕ ИНСТРУМЕНТЫ</h1>
-                
-                <div class="skills-grid">
-                    <div class="skill-column">
-                        <h3>Backend:</h3>
-                        <p>Python<br>Flask<br>SQLite<br>Telegram<br>PUBG<br>ngrok</p>
-                    </div>
+            <div class="main skills-main">
+                <div class="skills-content-wrapper">
+                    <h1 class="skills-title">БАЗОВЫЕ ИНСТРУМЕНТЫ</h1>
                     
-                    <div class="skill-column">
-                        <h3>Frontend:</h3>
-                        <p>HTML<br>CSS<br>JavaScript</p>
+                    <div class="skills-grid">
+                        <div class="skill-column">
+                            <h3>Backend:</h3>
+                            <p>Python<br>Flask<br>SQLite<br>Telegram<br>PUBG<br>ngrok</p>
+                        </div>
                         
-                        <h3>Базы данных:</h3>
-                        <p>SQLite</p>
-                    </div>
-                    
-                    <div class="skill-column">
-                        <h3>Деплой:</h3>
-                        <p>ngrok<br>Любой другой сервер</p>
+                        <div class="skill-column">
+                            <h3>Frontend:</h3>
+                            <p>HTML<br>CSS<br>JavaScript</p>
+                            
+                            <h3>Базы данных:</h3>
+                            <p>SQLite</p>
+                        </div>
                         
-                        <h3>API:</h3>
-                        <p>Telegram<br>Любое другое API</p>
-                    </div>
-                    
-                    <div class="skill-column">
-                        <h3>Библиотеки:</h3>
-                        <p>requests<br>sqlite3<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
-                    </div>
-                    
-                    <div class="skill-column">
-                        <h3>Форматы:</h3>
-                        <p>UTF-8<br>ISO</p>
+                        <div class="skill-column">
+                            <h3>Деплой:</h3>
+                            <p>ngrok<br>Любой другой сервер</p>
+                            
+                            <h3>API:</h3>
+                            <p>Telegram<br>Любое другое API</p>
+                        </div>
+                        
+                        <div class="skill-column">
+                            <h3>Библиотеки:</h3>
+                            <p>requests<br>sqlite3<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
+                        </div>
+                        
+                        <div class="skill-column">
+                            <h3>Форматы:</h3>
+                            <p>UTF-8<br>ISO</p>
+                        </div>
                     </div>
                 </div>
             </div>
