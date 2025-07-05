@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title>God & Devil 😈</title>
     <!-- Подключение шрифта Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,26 +13,45 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😇</text></svg>">
     
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none; /* Запрет выделения на iOS */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none; /* Запрет контекстного меню на iOS */
+            -webkit-tap-highlight-color: transparent; /* Убираем подсветку при тапе */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+            touch-action: pan-x; /* Разрешаем только горизонтальные жесты */
+            -webkit-overflow-scrolling: touch;
+            position: fixed; /* Фиксируем body */
+            width: 100%;
+        }
+        
+        html {
+            overflow: hidden;
+            height: 100%;
+            -webkit-text-size-adjust: 100%; /* Запрет автоматического изменения размера текста на iOS */
+            -ms-text-size-adjust: 100%;
+        }
 
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f5f5f5;
-        height: 100vh;
-        overflow: hidden;
-    }
+.slider-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            touch-action: pan-x; /* Только горизонтальные жесты */
+        }
 
-    .slider-container {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-    }
-.slide {
+        .slide {
             position: absolute;
             top: 0;
             left: 0;
@@ -43,8 +62,8 @@
             transition: all 0.5s ease-in-out;
             overflow-y: auto;
             overflow-x: hidden;
-            padding-top: 120px; /* Добавили отступ сверху для всех слайдов */
-            box-sizing: border-box;
+            touch-action: pan-y; /* Разрешаем вертикальный скролл внутри слайда */
+            -webkit-overflow-scrolling: touch;
         }
 
     .slide.active {
@@ -1286,35 +1305,53 @@ function generateProjectSlides() {
         
       
         
-        // Обработка свайпов на мобильных (вправо и влево)
+        // Обработка свайпов на мобильных (улучшенная версия)
         let startX = 0;
         let startY = 0;
+        let isSwiping = false;
         
         document.addEventListener('touchstart', function(e) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        });
+            if (e.touches.length === 1) { // Только один палец
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                isSwiping = false;
+            }
+        }, { passive: true });
         
+        document.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 1 && startX && startY) {
+                let currentX = e.touches[0].clientX;
+                let currentY = e.touches[0].clientY;
+                
+                let diffX = Math.abs(startX - currentX);
+                let diffY = Math.abs(startY - currentY);
+                
+                // Если горизонтальное движение больше вертикального
+                if (diffX > diffY && diffX > 30) {
+                    isSwiping = true;
+                    e.preventDefault(); // Предотвращаем скролл только при свайпе
+                }
+            }
+        }, { passive: false });
+
         document.addEventListener('touchend', function(e) {
-            if (!startX || !startY) return;
+            if (!startX || !startY || !isSwiping) return;
             
             let endX = e.changedTouches[0].clientX;
-            let endY = e.changedTouches[0].clientY;
-            
             let diffX = startX - endX;
-            let diffY = startY - endY;
             
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (diffX > 50) {
-                    nextSlide(); // Свайп вправо - вперед
-                } else if (diffX < -50) {
-                    prevSlide(); // Свайп влево - назад
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    nextSlide(); // Свайп влево - следующий слайд
+                } else {
+                    prevSlide(); // Свайп вправо - предыдущий слайд
                 }
             }
             
             startX = 0;
             startY = 0;
-        });
+            isSwiping = false;
+        }, { passive: true });
         
         // Обработка тачпада (вправо и влево)
         let isScrolling = false;
