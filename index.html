@@ -14,465 +14,949 @@
     
 <style>
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f5f5f5;
-    height: 100vh;
-    overflow: hidden;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-    position: fixed;
-    width: 100%;
-}
-
-html {
-    overflow: hidden;
-    height: 100%;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-}
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none; /* Запрет выделения на iOS */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none; /* Запрет контекстного меню на iOS */
+            -webkit-tap-highlight-color: transparent; /* Убираем подсветку при тапе */
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+            touch-action: pan-x; /* Разрешаем только горизонтальные жесты */
+            -webkit-overflow-scrolling: touch;
+            position: fixed; /* Фиксируем body */
+            width: 100%;
+        }
+        
+        html {
+            overflow: hidden;
+            height: 100%;
+            -webkit-text-size-adjust: 100%; /* Запрет автоматического изменения размера текста на iOS */
+            -ms-text-size-adjust: 100%;
+        }
 
 .slider-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    touch-action: pan-x;
-}
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            touch-action: pan-x; /* Только горизонтальные жесты */
+        }
 
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.5s ease-in-out;
-    overflow-y: auto;
-    overflow-x: hidden;
-    touch-action: pan-y;
-    -webkit-overflow-scrolling: touch;
-}
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            touch-action: pan-y; /* Разрешаем вертикальный скролл внутри слайда */
+            -webkit-overflow-scrolling: touch;
+        }
 
-.slide.active {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.slide.prev {
-    transform: translateX(-100%);
-}
-
-.header {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 1001;
-    width: auto;
-    white-space: nowrap;
-}
-
-.emoji {
-    font-size: 24px;
-}
-
-.text {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-}
-
-.main {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 100vw;
-    padding: 0 20px;
-    box-sizing: border-box;
-    margin-top: 40px;
-}
-
-.skills-content {
-    max-width: 1400px;
-    width: 100%;
-    margin-top: 140px;
-}
-
-.skills-title {
-    font-size: 80px;
-    font-weight: bold;
-    color: #000;
-    text-align: center;
-    margin-bottom: 60px;
-    padding-top: 20px;
-}
-
-.hello-text {
-    font-size: 120px;
-    font-weight: bold;
-    color: #000;
-    text-align: center;
-    letter-spacing: 8px;
-}
-
-.big-text {
-    font-size: 80px;
-    font-weight: bold;
-    color: #000;
-    text-align: left;
-    line-height: 1.1;
-    max-width: 100%;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: manual;
-    white-space: normal;
-}
-
-.navigation-buttons {
-    position: absolute;
-    bottom: 40px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 40px;
-}
-
-.nav-button {
-    width: 80px;
-    height: 80px;
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-}
-
-.prev-button {
-    background-color: #ff4757;
-}
-
-.next-button {
-    background-color: #4285f4;
-}
-
-.nav-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.navigation-buttons .nav-button:only-child {
-    margin-left: 0;
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 40px;
-    padding: 0 40px;
-}
-
-.skill-column h3 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #000;
-    margin-bottom: 15px;
-}
-
-.skill-column p {
-    font-size: 16px;
-    color: #000;
-    line-height: 1.6;
-    margin-bottom: 25px;
-}
-
-.project-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-    flex-wrap: wrap;
-}
-
-.project-number {
-    font-size: 200px;
-    font-weight: bold;
-    color: #000;
-}
-
-.project-info {
-    flex: 1;
-    margin-left: 80px;
-    min-width: 0;
-    max-width: 100%;
-}
-
-.project-description {
-    font-size: 24px;
-    color: #000;
-    margin-bottom: 20px;
-}
-
-.project-link {
-    font-size: 48px;
-    color: #4285f4;
-    text-decoration: underline;
-    font-weight: bold;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    display: block;
-    max-width: 100%;
-}
-
-.project-link:hover {
-    color: #2563eb;
-}
-
-.button-container {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-}
-
-.blue-button {
-    width: 80px;
-    height: 80px;
-    background-color: #4285f4;
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-}
-
-.blue-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.navigation-controls {
-    position: fixed;
-    bottom: 30px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 30px;
-    pointer-events: none;
-    z-index: 1000;
-}
-
-.nav-button-container {
-    pointer-events: auto;
-}
-
-.prev-container {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.prev-container.show {
-    opacity: 1;
-}
-
-.nav-button-global {
-    width: 70px;
-    height: 70px;
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-}
-
-.prev-button-global {
-    background-color: #ff4757;
-}
-
-.next-button-global {
-    background-color: #4285f4;
-}
-
-.nav-button-global:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.skills-main {
-    position: static !important;
-    transform: none !important;
-    top: auto !important;
-    left: auto !important;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 120px 20px 20px 20px;
-}
-
-.skills-content-wrapper {
-    width: 100%;
-    max-width: 1400px;
-}
-
-@media (max-width: 768px) {
-    .header {
-        top: 15px;
-        gap: 8px;
-        padding: 8px 16px;
+    .slide.active {
+        opacity: 1;
+        transform: translateX(0);
     }
 
-    .emoji {
-        font-size: 20px;
+    .slide.prev {
+        transform: translateX(-100%);
     }
 
-    .text {
-        font-size: 16px;
-    }
+ /* Верхняя часть */
+       /* Верхняя часть */
+        /* Верхняя часть */
+        .header {
+            position: fixed;
+            top: 20px; /* Уменьшили отступ сверху */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1001;
+            width: auto;
+            white-space: nowrap;
+            /* Убрали фон и backdrop-filter */
+        }
+
+        .emoji {
+            font-size: 24px;
+        }
+
+        .text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+ .main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 100vw;
+            padding: 0 20px;
+            box-sizing: border-box;
+            margin-top: 40px; /* Отступ для хедера */
+        }
+        
+      /* Стили для четвертого слайда */
+        .skills-content {
+            max-width: 1400px;
+            width: 100%;
+            margin-top: 120px; /* Базовый отступ */
+        }
+        
+        .skills-title {
+            font-size: 80px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px; /* Дополнительный отступ сверху */
+        }
 
     .hello-text {
-        font-size: 60px;
-        letter-spacing: 4px;
-    }
-
-    .big-text {
-        font-size: 45px;
+        font-size: 120px;
+        font-weight: bold;
+        color: #000;
         text-align: center;
-        padding: 0 15px;
-        line-height: 1.2;
-    }
-
-    .skills-main {
-        padding: 100px 15px 20px 15px;
-    }
-
-    .skills-title {
-        font-size: 32px;
-        margin-bottom: 40px;
-        padding-top: 40px;
-    }
-
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-        padding: 0 20px;
-    }
-
-    .slide {
-        padding-top: 100px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header {
-        top: 10px;
-        gap: 6px;
-        padding: 6px 12px;
-    }
-
-    .emoji {
-        font-size: 18px;
-    }
-
-    .text {
-        font-size: 14px;
-    }
-
-    .hello-text {
-        font-size: 45px;
-        letter-spacing: 2px;
+        letter-spacing: 8px;
     }
 
     .big-text {
-        font-size: 32px;
-        line-height: 1.3;
-        padding: 0 10px;
+        font-size: 80px;
+        font-weight: bold;
+        color: #000;
+        text-align: left;
+        line-height: 1.1;
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: manual;
+        white-space: normal;
     }
 
-    .skills-main {
-        padding: 90px 10px 20px 10px;
+    .navigation-buttons {
+        position: absolute;
+        bottom: 40px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 40px;
+    }
+
+    .nav-button {
+        width: 80px;
+        height: 80px;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .prev-button {
+        background-color: #ff4757;
+    }
+
+    .next-button {
+        background-color: #4285f4;
+    }
+
+    .nav-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .navigation-buttons .nav-button:only-child {
+        margin-left: 0;
+    }
+
+    .skills-content {
+        max-width: 1400px;
+        width: 100%;
+        margin-top: 140px;
     }
 
     .skills-title {
-        font-size: 24px;
-        margin-bottom: 30px;
-        padding-top: 50px;
+        font-size: 80px;
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+        margin-bottom: 60px;
     }
 
     .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 10px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 40px;
+        padding: 0 40px;
     }
 
-    .slide {
-        padding-top: 90px;
-    }
-}
-
-@media (max-width: 360px) {
-    .skills-main {
-        padding: 80px 5px 20px 5px;
-    }
-
-    .skills-title {
+    .skill-column h3 {
         font-size: 20px;
-        margin-bottom: 25px;
-        padding-top: 60px;
-    }
-
-    .slide {
-        padding-top: 80px;
-    }
-}
-
-@media (max-width: 320px) {
-    .skills-main {
-        padding: 70px 5px 20px 5px;
-    }
-
-    .skills-title {
-        font-size: 20px;
+        font-weight: bold;
+        color: #000;
         margin-bottom: 15px;
     }
 
-    .slide {
-        padding-top: 70px;
+    .skill-column p {
+        font-size: 16px;
+        color: #000;
+        line-height: 1.6;
+        margin-bottom: 25px;
     }
-}
-</style>
 
+    .project-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+        flex-wrap: wrap;
+    }
+
+    .project-number {
+        font-size: 200px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .project-info {
+        flex: 1;
+        margin-left: 80px;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .project-description {
+        font-size: 24px;
+        color: #000;
+        margin-bottom: 20px;
+    }
+
+    .project-link {
+        font-size: 48px;
+        color: #4285f4;
+        text-decoration: underline;
+        font-weight: bold;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        display: block;
+        max-width: 100%;
+    }
+
+    .project-link:hover {
+        color: #2563eb;
+    }
+
+    .button-container {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+    }
+
+    .blue-button {
+        width: 80px;
+        height: 80px;
+        background-color: #4285f4;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .blue-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .navigation-controls {
+        position: fixed;
+        bottom: 30px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 30px;
+        pointer-events: none;
+        z-index: 1000;
+    }
+
+    .nav-button-container {
+        pointer-events: auto;
+    }
+
+    .prev-container {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .prev-container.show {
+        opacity: 1;
+    }
+
+    .nav-button-global {
+        width: 70px;
+        height: 70px;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+
+    .prev-button-global {
+        background-color: #ff4757;
+    }
+
+    .next-button-global {
+        background-color: #4285f4;
+    }
+
+    .nav-button-global:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+
+
+
+    /* Специальные стили для слайда с навыками */
+        .skills-main {
+            position: static !important; /* Убираем absolute позиционирование */
+            transform: none !important;
+            top: auto !important;
+            left: auto !important;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 20px 20px; /* Большой отступ сверху */
+        }
+        
+        .skills-content-wrapper {
+            width: 100%;
+            max-width: 1400px;
+        }
+        
+        .skills-title {
+            font-size: 80px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+            margin-bottom: 60px;
+            line-height: 1.1;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 40px;
+            padding: 0 40px;
+        }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+           .header {
+                top: 60px;
+                gap: 8px;
+            }
+            
+            .emoji {
+                font-size: 20px;
+            }
+            
+            .text {
+                font-size: 16px;
+            }
+
+        .hello-text {
+            font-size: 60px;
+            letter-spacing: 4px;
+        }
+
+        .button-container {
+            bottom: 30px;
+            right: 30px;
+        }
+
+        .blue-button {
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+        }
+
+        .big-text {
+            font-size: 45px;
+            text-align: center;
+            padding: 0 20px;
+            line-height: 1.2;
+        }
+
+        .navigation-buttons {
+            bottom: 30px;
+            padding: 0 30px;
+        }
+
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+        }
+
+        .skills-content {
+            margin-top: 120px;
+        }
+
+        .skills-title {
+            font-size: 45px;
+            margin-bottom: 40px;
+        }
+
+        .skills-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .skill-column h3 {
+            font-size: 18px;
+        }
+
+        .skill-column p {
+            font-size: 14px;
+        }
+
+        .project-content {
+            flex-direction: column;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        .project-number {
+            font-size: 120px;
+            margin-bottom: 30px;
+        }
+
+        .project-info {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+
+        .project-description {
+            font-size: 18px;
+        }
+
+        .project-link {
+            font-size: 24px;
+        }
+
+        .navigation-controls {
+            bottom: 25px;
+            padding: 0 25px;
+        }
+
+        .nav-button-global {
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+        }
+
+        .main {
+            padding: 0 15px;
+        }
+
+        .big-text {
+            padding: 0 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+           .header {
+                top: 50px;
+                gap: 6px;
+            }
+            
+            .emoji {
+                font-size: 18px;
+            }
+            
+            .text {
+                font-size: 14px;
+            }
+        .hello-text {
+            font-size: 45px;
+            letter-spacing: 2px;
+        }
+
+        .big-text {
+            font-size: 32px;
+            line-height: 1.3;
+            padding: 0 15px;
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .skills-content {
+            margin-top: 100px;
+        }
+
+        .skills-title {
+            font-size: 32px;
+        }
+
+        .project-number {
+            font-size: 80px;
+        }
+
+        .project-description {
+            font-size: 16px;
+        }
+
+        .project-link {
+            font-size: 18px;
+        }
+
+        .navigation-controls {
+            bottom: 20px;
+            padding: 0 20px;
+        }
+
+        .nav-button-global {
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+        }
+
+        .main {
+            padding: 0 10px;
+        }
+
+        .big-text {
+            padding: 0 10px;
+        }
+
+        .project-content {
+            padding: 0 10px;
+        }
+    }
+
+    @media (max-width: 360px) {
+         .header {
+                top: 40px;
+                gap: 5px;
+            }
+            
+            .emoji {
+                font-size: 16px;
+            }
+            
+            .text {
+                font-size: 12px;
+            }
+
+        .hello-text {
+            font-size: 35px;
+            letter-spacing: 1px;
+        }
+
+        .big-text {
+            font-size: 24px;
+            line-height: 1.2;
+            padding: 0 10px;
+        }
+
+        .skills-content {
+            margin-top: 80px;
+        }
+
+        .skills-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        .skill-column h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .skill-column p {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .project-number {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .project-description {
+            font-size: 14px;
+        }
+
+        .project-link {
+            font-size: 16px;
+        }
+
+        .navigation-controls {
+            bottom: 15px;
+            padding: 0 15px;
+        }
+
+        .nav-button-global {
+            width: 45px;
+            height: 45px;
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 320px) {
+        .header {
+                top: 30px;
+                gap: 4px;
+            }
+            
+            .emoji {
+                font-size: 14px;
+            }
+            
+            .text {
+                font-size: 11px;
+            }
+
+        .hello-text {
+            font-size: 28px;
+            letter-spacing: 0px;
+        }
+
+        .big-text {
+            font-size: 20px;
+            line-height: 1.1;
+            padding: 0 5px;
+        }
+
+        .skills-content {
+            margin-top: 70px;
+        }
+
+        .skills-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .skills-grid {
+            padding: 0 10px;
+            gap: 10px;
+        }
+
+        .skill-column h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .skill-column p {
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .project-number {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .project-description {
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .project-link {
+            font-size: 14px;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        .navigation-controls {
+            bottom: 10px;
+            padding: 0 10px;
+        }
+
+        .nav-button-global {
+            width: 40px;
+            height: 40px;
+            font-size: 14px;
+        }
+
+        .main {
+            padding: 0 5px;
+        }
+
+        .big-text {
+            padding: 0 5px;
+        }
+
+        .project-content {
+            padding: 0 5px;
+        }
+    }
+
+    @media (max-width: 768px) {
+            .main {
+                margin-top: 30px;
+            }
+            
+            .skills-content {
+                margin-top: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main {
+                margin-top: 20px;
+            }
+            
+            .skills-content {
+                margin-top: 120px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .main {
+                margin-top: 15px;
+            }
+            
+            .skills-content {
+                margin-top: 100px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .main {
+                margin-top: 10px;
+            }
+            
+            .skills-content {
+                margin-top: 90px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                top: 60px;
+                padding: 8px 16px;
+            }
+            
+            .skills-content {
+                margin-top: 160px; /* Увеличили отступ */
+            }
+            
+            .skills-title {
+                font-size: 45px;
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                top: 50px;
+                padding: 6px 12px;
+            }
+            
+            .skills-content {
+                margin-top: 140px; /* Увеличили отступ */
+            }
+            
+            .skills-title {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header {
+                top: 40px;
+                padding: 5px 10px;
+            }
+            
+            .skills-content {
+                margin-top: 120px; /* Увеличили отступ */
+            }
+            
+            .skills-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .header {
+                top: 30px;
+                padding: 4px 8px;
+            }
+            
+            .skills-content {
+                margin-top: 100px; /* Увеличили отступ */
+            }
+            
+            .skills-title {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding-top: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide {
+                padding-top: 90px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .slide {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .slide {
+                padding-top: 70px;
+            }
+        }
+  
+        @media (max-width: 768px) {
+            .header {
+                top: 15px;
+            }
+            
+            .skills-content {
+                margin-top: 80px; /* Увеличенный отступ */
+            }
+            
+            .skills-title {
+                font-size: 32px; /* Сразу маленький размер */
+                margin-bottom: 30px;
+                padding-top: 40px; /* Большой отступ сверху */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                top: 10px;
+            }
+            
+            .skills-content {
+                margin-top: 60px;
+            }
+            
+            .skills-title {
+                font-size: 24px;
+                padding-top: 50px; /* Еще больше отступ */
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .skills-content {
+                margin-top: 40px;
+            }
+            
+            .skills-title {
+                font-size: 20px;
+                padding-top: 60px; /* Максимальный отступ */
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skills-main {
+                padding: 100px 15px 20px 15px;
+            }
+            
+            .skills-title {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-main {
+                padding: 90px 10px 20px 10px;
+            }
+            
+            .skills-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .skills-main {
+                padding: 80px 5px 20px 5px;
+            }
+            
+            .skills-title {
+                font-size: 20px;
+                margin-bottom: 25px;
+            }
+        }
+
+
+    </style>
 </head>
 <body>
     <!-- Контейнер для всех слайдов -->
