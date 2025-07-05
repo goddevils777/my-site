@@ -238,16 +238,15 @@ body {
             transform: scale(1.1);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
-
-        /* Единые кнопки навигации */
+/* Единые кнопки навигации */
         .navigation-controls {
             position: fixed;
-            bottom: 40px;
+            bottom: 30px;
             left: 0;
             right: 0;
             display: flex;
             justify-content: space-between;
-            padding: 0 40px;
+            padding: 0 30px;
             pointer-events: none;
             z-index: 1000;
         }
@@ -266,12 +265,12 @@ body {
         }
         
         .nav-button-global {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -331,6 +330,16 @@ body {
             }
             
             .project-link {
+                font-size: 18px;
+            }
+              .navigation-controls {
+                bottom: 20px;
+                padding: 0 20px;
+            }
+            
+            .nav-button-global {
+                width: 50px;
+                height: 50px;
                 font-size: 18px;
             }
             
@@ -435,7 +444,91 @@ body {
             .project-link {
                 font-size: 24px;
             }
+              .navigation-controls {
+                bottom: 25px;
+                padding: 0 25px;
+            }
+            
+            .nav-button-global {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+            }
         }
+        @media (max-width: 360px) {
+            .header {
+                top: 40px;
+            }
+            
+            .emoji {
+                font-size: 18px;
+            }
+            
+            .text {
+                font-size: 14px;
+            }
+            
+            .hello-text {
+                font-size: 35px;
+                letter-spacing: 1px;
+            }
+            
+            .big-text {
+                font-size: 24px;
+                line-height: 1.1;
+            }
+            
+            .skills-content {
+                margin-top: 80px;
+            }
+            
+            .skills-title {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 15px;
+            }
+            
+            .skill-column h3 {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+            
+            .skill-column p {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+            
+            .project-number {
+                font-size: 60px;
+                margin-bottom: 20px;
+            }
+            
+            .project-description {
+                font-size: 14px;
+            }
+            
+            .project-link {
+                font-size: 16px;
+            }
+             .navigation-controls {
+                bottom: 15px;
+                padding: 0 15px;
+            }
+            
+            .nav-button-global {
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
+            }ч
+        }
+
+
+
     </style>
 </head>
 <body>
