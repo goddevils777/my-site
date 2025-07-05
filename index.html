@@ -58,21 +58,19 @@
 
  /* Верхняя часть */
        /* Верхняя часть */
+        /* Верхняя часть */
         .header {
             position: fixed;
-            top: 80px;
+            top: 20px; /* Уменьшили отступ сверху */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             align-items: center;
             gap: 10px;
-            z-index: 1001; /* Увеличили z-index */
+            z-index: 1001;
             width: auto;
             white-space: nowrap;
-            background: rgba(245, 245, 245, 0.9); /* Добавили полупрозрачный фон */
-            padding: 10px 20px;
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
+            /* Убрали фон и backdrop-filter */
         }
 
         .emoji {
@@ -101,9 +99,7 @@
         .skills-content {
             max-width: 1400px;
             width: 100%;
-            margin-top: 200px; /* Увеличили отступ */
-            position: relative;
-            z-index: 1;
+            margin-top: 120px; /* Базовый отступ */
         }
         
         .skills-title {
@@ -111,9 +107,8 @@
             font-weight: bold;
             color: #000;
             text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            z-index: 1;
+            margin-bottom: 40px;
+            padding-top: 20px; /* Дополнительный отступ сверху */
         }
 
     .hello-text {
@@ -814,7 +809,49 @@
             }
         }
   
-        
+        @media (max-width: 768px) {
+            .header {
+                top: 15px;
+            }
+            
+            .skills-content {
+                margin-top: 80px; /* Увеличенный отступ */
+            }
+            
+            .skills-title {
+                font-size: 32px; /* Сразу маленький размер */
+                margin-bottom: 30px;
+                padding-top: 40px; /* Большой отступ сверху */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                top: 10px;
+            }
+            
+            .skills-content {
+                margin-top: 60px;
+            }
+            
+            .skills-title {
+                font-size: 24px;
+                padding-top: 50px; /* Еще больше отступ */
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .skills-content {
+                margin-top: 40px;
+            }
+            
+            .skills-title {
+                font-size: 20px;
+                padding-top: 60px; /* Максимальный отступ */
+                margin-bottom: 20px;
+            }
+        }
 
 
     </style>
