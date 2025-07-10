@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <title>God & Devil 😈</title>
+    <title>God & Devils 😈</title>
     <!-- Подключение шрифта Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -888,7 +888,7 @@
             }
             
             .skills-content {
-                margin-top: 60px;
+                margin-top: 100px;
             }
             
             .skills-title {
@@ -903,55 +903,87 @@
                 margin-top: 40px;
             }
             
+            .skills-main {
+                padding: 100px 10px 20px 10px;
+            }
+            
             .skills-title {
-                font-size: 20px;
-                padding-top: 60px; /* Максимальный отступ */
-                margin-bottom: 20px;
+                font-size: 28px;
+                margin-bottom: 25px;
+                padding-top: 30px;
             }
         }
 
         @media (max-width: 768px) {
             .skills-main {
-                padding: 100px 15px 20px 15px;
+                padding: 80px 15px 20px 15px;
             }
             
             .skills-title {
-                font-size: 32px;
-                margin-bottom: 40px;
+                font-size: 36px;
+                margin-bottom: 30px;
             }
             
             .skills-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-                padding: 0 20px;
+                gap: 25px;
+                padding: 0 15px;
+            }
+            
+            .skill-column {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 15px;
+                border-radius: 10px;
+            }
+            
+            .skill-column h3 {
+                font-size: 16px;
+                margin-bottom: 10px;
+                color: #333;
+            }
+            
+            .skill-column p {
+                font-size: 14px;
+                line-height: 1.5;
+                color: #555;
             }
         }
 
         @media (max-width: 480px) {
             .skills-main {
-                padding: 90px 10px 20px 10px;
+                padding: 80px 15px 50px 15px;
+                 height: auto;
             }
             
             .skills-title {
-                font-size: 24px;
+                font-size: 36px;
                 margin-bottom: 30px;
+                padding-top: 20px;
             }
-            
             .skills-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px;
                 padding: 0 10px;
+            }
+            
+            .skill-column {
+                background: rgba(255, 255, 255, 0.15);
+                padding: 12px;
+                border-radius: 8px;
+                margin-bottom: 5px;
             }
         }
 
         @media (max-width: 360px) {
             .skills-main {
                 padding: 80px 5px 20px 5px;
+                height: auto;
             }
             
             .skills-title {
-                font-size: 20px;
-                margin-bottom: 25px;
+                font-size: 24px;
+                margin-bottom: 40px;
+                padding-top: 40px;
             }
         }
 
@@ -1014,33 +1046,33 @@
                 <div class="skills-grid">
                     <div class="skill-column">
                         <h3>Backend:</h3>
-                        <p>Python<br>Flask<br>SQLite<br>Telegram<br>PUBG<br>ngrok</p>
+                        <p>Python<br>Flask<br>Node.js<br>Express.js<br>Telegram API<br>Session Management<br>ngrok</p>
                     </div>
                     
                     <div class="skill-column">
                         <h3>Frontend:</h3>
-                        <p>HTML<br>CSS<br>JavaScript</p>
+                        <p>HTML5<br>CSS3<br>Vanilla JavaScript<br>Fetch API</p>
                         
                         <h3>Базы данных:</h3>
-                        <p>SQLite</p>
+                        <p>SQLite<br>LocalStorage<br>File Storage</p>
                     </div>
                     
                     <div class="skill-column">
                         <h3>Деплой:</h3>
-                        <p>ngrok<br>Любой другой сервер</p>
+                        <p>ngrok<br>Local Development<br>File System<br>Любой другой сервер</p>
                         
                         <h3>API:</h3>
-                        <p>Telegram<br>Любое другое API</p>
+                        <p>Telegram API<br>Любое другое API</p>
                     </div>
                     
                     <div class="skill-column">
                         <h3>Библиотеки:</h3>
-                        <p>requests<br>sqlite3<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
+                        <p>requests<br>sqlite3<br>telegram (gramJS)<br>@google/generative-ai<br>node-telegram-bot-api<br>input<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
                     </div>
                     
                     <div class="skill-column">
                         <h3>Форматы:</h3>
-                        <p>UTF-8<br>ISO</p>
+                        <p>UTF-8<br>ISO<br>JSON<br>StringSession</p>
                     </div>
                 </div>
             </div>
@@ -1240,7 +1272,7 @@ function generateProjectSlides() {
            
         </div>`,
         
-       // Слайд 4 - БАЗОВЫЕ ИНСТРУМЕНТЫ  
+        // Слайд 4 - БАЗОВЫЕ ИНСТРУМЕНТЫ  
         `<div class="slide" id="slide4">
             <div class="header">
                 <span class="emoji">😇</span>
@@ -1253,27 +1285,27 @@ function generateProjectSlides() {
                     <div class="skills-grid">
                         <div class="skill-column">
                             <h3>Backend:</h3>
-                            <p>Python<br>Flask<br>SQLite<br>Telegram<br>PUBG<br>ngrok</p>
+                            <p>Python<br>Flask<br>Node.js<br>Express.js<br>Telegram API<br>Session Management<br>ngrok</p>
                         </div>
                         <div class="skill-column">
                             <h3>Frontend:</h3>
-                            <p>HTML<br>CSS<br>JavaScript</p>
+                            <p>HTML5<br>CSS3<br>Vanilla JavaScript<br>Fetch API</p>
                             <h3>Базы данных:</h3>
-                            <p>SQLite</p>
+                            <p>SQLite<br>LocalStorage<br>File Storage</p>
                         </div>
                         <div class="skill-column">
                             <h3>Деплой:</h3>
-                            <p>ngrok<br>Любой другой сервер</p>
+                            <p>ngrok<br>Local Development<br>File System<br>Любой другой сервер</p>
                             <h3>API:</h3>
-                            <p>Telegram<br>Любое другое API</p>
+                            <p>Telegram API<br>Любое другое API</p>
                         </div>
                         <div class="skill-column">
                             <h3>Библиотеки:</h3>
-                            <p>requests<br>sqlite3<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
+                            <p>requests<br>sqlite3<br>telegram (gramJS)<br>@google/generative-ai<br>node-telegram-bot-api<br>input<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
                         </div>
                         <div class="skill-column">
                             <h3>Форматы:</h3>
-                            <p>UTF-8<br>ISO</p>
+                            <p>UTF-8<br>ISO<br>JSON<br>StringSession</p>
                         </div>
                     </div>
                 </div>
