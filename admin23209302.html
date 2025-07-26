@@ -505,7 +505,7 @@ function logout() {
 async function testAPI() {
     try {
         console.log('Тестируем API...');
-        const response = await fetch('/admin-api.php'); // Было admin-api.php
+        const response = await fetch('admin-api.php'); // Было admin-api.php
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -533,7 +533,7 @@ async function testAPI() {
 async function loadProjects() {
     try {
         console.log('Загружаем проекты...');
-        const response = await fetch('/admin-api.php'); // Было admin-api.php
+        const response = await fetch('admin-api.php'); // Было admin-api.php
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
