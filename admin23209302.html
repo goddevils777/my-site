@@ -439,49 +439,10 @@
     </div>
 
     <script>
+   // Переменные
 let projects = [];
-
-// Загрузка проектов из JSON файла
-// Загрузка проектов
-async function loadProjects() {
-    try {
-        // Сначала пробуем загрузить из localStorage
-        const savedProjects = localStorage.getItem('projects');
-        if (savedProjects) {
-            projects = JSON.parse(savedProjects);
-        } else {
-            // Если нет в localStorage, загружаем из JSON файла
-            const response = await fetch('projects.json');
-            projects = await response.json();
-        }
-        renderProjects();
-    } catch (error) {
-        console.error('Ошибка загрузки проектов:', error);
-        projects = [
-            { id: 1, number: 1, title: "cafe-bot", url: "https://github.com/goddevils777/cafe-bot" },
-            { id: 2, number: 2, title: "telegram-message-bot", url: "https://github.com/goddevils777/telegram-message-bot" }
-        ];
-        renderProjects();
-    }
-}
-
-// Сохранение проектов 
-async function saveProjects() {
-    try {
-        // Сохраняем в localStorage для демонстрации
-        localStorage.setItem('projects', JSON.stringify(projects));
-        
-        // Также обновляем JSON файл (в реальном приложении через сервер)
-        console.log('Проекты сохранены:', projects);
-        
-        // Уведомляем об успешном сохранении
-        showNotification('Проекты успешно сохранены!');
-        
-    } catch (error) {
-        console.error('Ошибка сохранения:', error);
-        showNotification('Ошибка сохранения!', 'error');
-    }
-}
+let currentEditingId = null;
+let isAuthenticated = false;
 
 // Функция уведомлений
 function showNotification(message, type = 'success') {
@@ -491,112 +452,224 @@ function showNotification(message, type = 'success') {
         top: 20px;
         right: 20px;
         padding: 15px 25px;
-        background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : type === 'warning' ? '#ff9800' : '#2196F3'};
         color: white;
         border-radius: 8px;
         z-index: 10000;
         font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     `;
     notification.textContent = message;
     document.body.appendChild(notification);
     
     setTimeout(() => {
         notification.remove();
-    }, 3000);
+    }, 4000);
 }
+
+// Симуляция входа через GitHub
+function loginWithGitHub() {
+    setTimeout(() => {
+        const userData = {
+            name: "God Devils",
+            login: "goddevils777",
+            avatar: "https://github.com/goddevils777.png"
+        };
         
-        let currentEditingId = null;
-        let isAuthenticated = false;
+        setUserData(userData);
+        showAdminPanel();
+    }, 1000);
+}
 
-        // Симуляция авторизации через GitHub
-        function loginWithGitHub() {
-            // В реальном приложении здесь будет OAuth GitHub
-            setTimeout(() => {
-                const userData = {
-                    name: "God Devils",
-                    login: "goddevils777",
-                    avatar: "https://github.com/goddevils777.png"
-                };
-                
-                setUserData(userData);
-                showAdminPanel();
-            }, 1000);
-        }
-
-        function setUserData(userData) {
-            document.getElementById('userName').textContent = userData.name;
-            document.getElementById('userLogin').textContent = '@' + userData.login;
-            document.getElementById('userAvatar').src = userData.avatar;
-            isAuthenticated = true;
-        }
+function setUserData(userData) {
+    document.getElementById('userName').textContent = userData.name;
+    document.getElementById('userLogin').textContent = '@' + userData.login;
+    document.getElementById('userAvatar').src = userData.avatar;
+    isAuthenticated = true;
+}
 
 function showAdminPanel() {
     document.getElementById('loginSection').classList.add('hidden');
     document.getElementById('userInfo').classList.remove('hidden');
     document.getElementById('adminPanel').classList.remove('hidden');
-    loadProjects(); // Загружаем проекты при входе
+    loadProjects();
 }
 
-        function logout() {
-            isAuthenticated = false;
-            document.getElementById('loginSection').classList.remove('hidden');
-            document.getElementById('userInfo').classList.add('hidden');
-            document.getElementById('adminPanel').classList.add('hidden');
-        }
+function logout() {
+    isAuthenticated = false;
+    document.getElementById('loginSection').classList.remove('hidden');
+    document.getElementById('userInfo').classList.add('hidden');
+    document.getElementById('adminPanel').classList.add('hidden');
+}
 
-        function renderProjects() {
-            const grid = document.getElementById('projectsGrid');
-            grid.innerHTML = '';
-            
-            projects.forEach(project => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.innerHTML = `
-                    <div class="project-number">#${project.number}</div>
-                    <div class="project-title">${project.title}</div>
-                    <a href="${project.url}" target="_blank" class="project-url">${project.url}</a>
-                    <div class="project-actions">
-                        <button class="edit-btn" onclick="editProject(${project.id})">Изменить</button>
-                        <button class="delete-btn" onclick="deleteProject(${project.id})">Удалить</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+// Функция проверки API
+async function testAPI() {
+    try {
+        console.log('Тестируем API...');
+        const response = await fetch('admin-api.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
         }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            const text = await response.text();
+            console.error('Ответ не JSON:', text.substring(0, 200));
+            throw new Error('Сервер вернул HTML вместо JSON. Проверьте что PHP работает.');
+        }
+        
+        const data = await response.json();
+        console.log('✅ API работает:', data);
+        showNotification('✅ API работает корректно', 'success');
+        return true;
+        
+    } catch (error) {
+        console.error('❌ Ошибка API:', error);
+        showNotification(`❌ Ошибка API: ${error.message}`, 'error');
+        return false;
+    }
+}
 
-        function openAddModal() {
-            currentEditingId = null;
-            document.getElementById('modalTitle').textContent = 'Добавить проект';
-            document.getElementById('projectForm').reset();
-            document.getElementById('projectModal').classList.add('active');
+// Загрузка проектов
+async function loadProjects() {
+    try {
+        console.log('Загружаем проекты...');
+        const response = await fetch('admin-api.php');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
         }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            throw new Error('Сервер вернул не JSON');
+        }
+        
+        const data = await response.json();
+        projects = Array.isArray(data) ? data : [];
+        
+        console.log('Проекты загружены:', projects);
+        renderProjects();
+        
+    } catch (error) {
+        console.error('Ошибка загрузки проектов:', error);
+        showNotification(`Ошибка загрузки: ${error.message}`, 'error');
+        
+        // Пробуем загрузить из localStorage
+        const savedProjects = localStorage.getItem('projects');
+        if (savedProjects) {
+            projects = JSON.parse(savedProjects);
+            renderProjects();
+            showNotification('Загружены из кэша', 'warning');
+        } else {
+            projects = [];
+            renderProjects();
+        }
+    }
+}
 
-        function editProject(id) {
-            const project = projects.find(p => p.id === id);
-            if (!project) return;
-            
-            currentEditingId = id;
-            document.getElementById('modalTitle').textContent = 'Редактировать проект';
-            document.getElementById('projectNumber').value = project.number;
-            document.getElementById('projectTitle').value = project.title;
-            document.getElementById('projectUrl').value = project.url;
-            document.getElementById('projectModal').classList.add('active');
+// Сохранение проектов
+async function saveProjects() {
+    try {
+        const validProjects = projects.filter(project => 
+            project && project.id && project.number && project.title && project.url
+        );
+        
+        if (validProjects.length !== projects.length) {
+            projects = validProjects;
         }
+        
+        projects.sort((a, b) => a.number - b.number);
+        
+        console.log('Сохраняем проекты:', projects);
+        
+        const response = await fetch('admin-api.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(projects)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            localStorage.setItem('projects', JSON.stringify(projects));
+            showNotification('✅ Проекты сохранены!', 'success');
+        } else {
+            throw new Error(result.message);
+        }
+        
+    } catch (error) {
+        console.error('Ошибка сохранения:', error);
+        showNotification(`❌ Ошибка: ${error.message}`, 'error');
+        
+        // Сохраняем локально
+        localStorage.setItem('projects', JSON.stringify(projects));
+        showNotification('Сохранено локально', 'warning');
+    }
+}
+
+// Отрисовка проектов
+function renderProjects() {
+    const grid = document.getElementById('projectsGrid');
+    grid.innerHTML = '';
+    
+    projects.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+            <div class="project-number">#${project.number}</div>
+            <div class="project-title">${project.title}</div>
+            <a href="${project.url}" target="_blank" class="project-url">${project.url}</a>
+            <div class="project-actions">
+                <button class="edit-btn" onclick="editProject(${project.id})">Изменить</button>
+                <button class="delete-btn" onclick="deleteProject(${project.id})">Удалить</button>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+// Модальные окна
+function openAddModal() {
+    currentEditingId = null;
+    document.getElementById('modalTitle').textContent = 'Добавить проект';
+    document.getElementById('projectForm').reset();
+    document.getElementById('projectModal').classList.add('active');
+}
+
+function editProject(id) {
+    const project = projects.find(p => p.id === id);
+    if (!project) return;
+    
+    currentEditingId = id;
+    document.getElementById('modalTitle').textContent = 'Редактировать проект';
+    document.getElementById('projectNumber').value = project.number;
+    document.getElementById('projectTitle').value = project.title;
+    document.getElementById('projectUrl').value = project.url;
+    document.getElementById('projectModal').classList.add('active');
+}
 
 function deleteProject(id) {
-    if (confirm('Вы уверены, что хотите удалить этот проект?')) {
+    if (confirm('Удалить проект?')) {
         projects = projects.filter(p => p.id !== id);
         saveProjects();
         renderProjects();
     }
 }
 
-        function closeModal() {
-            document.getElementById('projectModal').classList.remove('active');
-            currentEditingId = null;
-        }
+function closeModal() {
+    document.getElementById('projectModal').classList.remove('active');
+    currentEditingId = null;
+}
 
-// Обработчик формы
+// Обработка формы
 document.getElementById('projectForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -607,13 +680,11 @@ document.getElementById('projectForm').addEventListener('submit', function(e) {
     };
 
     if (currentEditingId) {
-        // Редактирование существующего проекта
         const projectIndex = projects.findIndex(p => p.id === currentEditingId);
         if (projectIndex !== -1) {
             projects[projectIndex] = { ...projects[projectIndex], ...formData };
         }
     } else {
-        // Добавление нового проекта
         const newProject = {
             id: Date.now(),
             ...formData
@@ -621,23 +692,23 @@ document.getElementById('projectForm').addEventListener('submit', function(e) {
         projects.push(newProject);
     }
 
-    saveProjects(); // Сохраняем изменения
+    saveProjects();
     renderProjects();
     closeModal();
 });
 
-        // Закрытие модального окна по клику вне его
-        document.getElementById('projectModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
+// Закрытие модального окна
+document.getElementById('projectModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
 
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            // Проверяем, есть ли сохраненная авторизация
-            // В реальном приложении здесь будет проверка токена
-        });
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Админ-панель загружена');
+    testAPI();
+});
     </script>
 </body>
 </html>

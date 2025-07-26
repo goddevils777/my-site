@@ -4,22 +4,47 @@ let projectsData = [];
 async function loadProjectsData() {
     console.log('Начинаем загрузку проектов...');
     try {
-        const savedProjects = localStorage.getItem('projects');
-        if (savedProjects) {
-            console.log('Найдены проекты в localStorage:', savedProjects);
-            projectsData = JSON.parse(savedProjects);
-        } else {
-            console.log('localStorage пуст, загружаем из JSON...');
-            const response = await fetch('projects.json');
-            projectsData = await response.json();
-            console.log('Проекты загружены из JSON:', projectsData);
+        // Сначала пробуем загрузить через API
+        let response;
+        try {
+            response = await fetch('admin-api.php?t=' + Date.now());
+            if (response.ok) {
+                projectsData = await response.json();
+                console.log('Проекты загружены через API:', projectsData);
+            } else {
+                throw new Error('API недоступен');
+            }
+        } catch (apiError) {
+            console.log('API недоступен, загружаем из JSON файла...');
+            response = await fetch('projects.json?t=' + Date.now());
+            if (response.ok) {
+                projectsData = await response.json();
+                console.log('Проекты загружены из JSON:', projectsData);
+            } else {
+                throw new Error('Файлы недоступны');
+            }
         }
+        
+        // Проверяем localStorage как резерв
+        if (!projectsData || projectsData.length === 0) {
+            const savedProjects = localStorage.getItem('projects');
+            if (savedProjects) {
+                projectsData = JSON.parse(savedProjects);
+                console.log('Проекты загружены из localStorage:', projectsData);
+            }
+        }
+        
+        // Убеждаемся что проекты валидны
+        projectsData = projectsData.filter(project => 
+            project && project.id && project.number && project.title && project.url
+        );
         
         updateSlidesCount();
         generateProjectSlides();
         
     } catch (error) {
         console.error('Ошибка загрузки проектов:', error);
+        // Используем резервные данные
         projectsData = [
             { id: 1, number: 1, title: "cafe-bot", url: "https://github.com/goddevils777/cafe-bot" },
             { id: 2, number: 2, title: "telegram-message-bot", url: "https://github.com/goddevils777/telegram-message-bot" }
