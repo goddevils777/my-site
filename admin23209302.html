@@ -489,6 +489,11 @@ function setUserData(userData) {
 }
 
 function showAdminPanel() {
+    if (isProduction()) {
+        showNotification('⚠️ Админ-панель недоступна на продакшене. Используйте локальную версию.', 'warning');
+        return;
+    }
+    
     document.getElementById('loginSection').classList.add('hidden');
     document.getElementById('userInfo').classList.remove('hidden');
     document.getElementById('adminPanel').classList.remove('hidden');
@@ -502,10 +507,20 @@ function logout() {
     document.getElementById('adminPanel').classList.add('hidden');
 }
 
+function isProduction() {
+    return window.location.hostname !== 'localhost' && 
+           window.location.hostname !== '127.0.0.1';
+}
+
 async function testAPI() {
+    if (isProduction()) {
+        showNotification('❌ Админка работает только локально! Используйте localhost:8000', 'error');
+        return false;
+    }
+    
     try {
         console.log('Тестируем API...');
-        const response = await fetch('admin-api.php'); // Было admin-api.php
+        const response = await fetch('/admin-api.php');
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -581,7 +596,7 @@ async function saveProjects() {
         
         console.log('Сохраняем проекты:', projects);
         
-        const response = await fetch('/admin-api.php', { // Было admin-api.php
+        const response = await fetch('admin-api.php', { // Было admin-api.php
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
