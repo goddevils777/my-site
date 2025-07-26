@@ -502,11 +502,10 @@ function logout() {
     document.getElementById('adminPanel').classList.add('hidden');
 }
 
-// Функция проверки API
 async function testAPI() {
     try {
         console.log('Тестируем API...');
-        const response = await fetch('admin-api.php');
+        const response = await fetch('/admin-api.php'); // Было admin-api.php
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -516,7 +515,7 @@ async function testAPI() {
         if (!contentType || !contentType.includes('application/json')) {
             const text = await response.text();
             console.error('Ответ не JSON:', text.substring(0, 200));
-            throw new Error('Сервер вернул HTML вместо JSON. Проверьте что PHP работает.');
+            throw new Error('Сервер вернул HTML вместо JSON. Проверьте что сервер работает.');
         }
         
         const data = await response.json();
@@ -531,11 +530,10 @@ async function testAPI() {
     }
 }
 
-// Загрузка проектов
 async function loadProjects() {
     try {
         console.log('Загружаем проекты...');
-        const response = await fetch('admin-api.php');
+        const response = await fetch('/admin-api.php'); // Было admin-api.php
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -569,7 +567,6 @@ async function loadProjects() {
     }
 }
 
-// Сохранение проектов
 async function saveProjects() {
     try {
         const validProjects = projects.filter(project => 
@@ -584,7 +581,7 @@ async function saveProjects() {
         
         console.log('Сохраняем проекты:', projects);
         
-        const response = await fetch('admin-api.php', {
+        const response = await fetch('/admin-api.php', { // Было admin-api.php
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
