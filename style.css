@@ -212,7 +212,7 @@
 
 .project-content {
     display: flex;
-    align-items: center;
+    align-items: left;
     justify-content: space-between;
     max-width: 1200px;
     width: 100%;
@@ -1427,7 +1427,7 @@
 @media (max-width: 480px) {
     .project-content {
         flex-direction: column;
-        text-align: center;
+        text-align: left;
     }
     
     .project-number {
