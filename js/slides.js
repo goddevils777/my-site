@@ -11,7 +11,7 @@ function generateBaseSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="hello-text">&lt;/ HELLO code&gt;</h1>
+                <h1 class="hello-text">&lt;/ HELLO &gt;</h1>
             </div>
         </div>`,
         
@@ -98,6 +98,27 @@ function generateProjectSlides() {
     const projects = getProjectsData();
     return projects.map((project, index) => {
         const slideNumber = 6 + index;
+        
+        // Разбиваем README на строки для нумерации
+        const readmeText = project.readme || `# ${project.title}\n\n🔗 **GitHub**: [${project.url}](${project.url})\n📝 Полное описание в репозитории`;
+        const lines = readmeText.split('\n');
+        
+        // Генерируем номера строк
+        const lineNumbers = lines.map((_, i) => `<span>${i + 1}</span>`).join('');
+        
+        // Генерируем текст с подсветкой синтаксиса
+        const codeLines = lines.map(line => {
+            if (line.startsWith('#')) {
+                return `<div class="markdown-header">${line}</div>`;
+            } else if (line.includes('**') && line.includes('**')) {
+                return `<div class="markdown-bold">${line}</div>`;
+            } else if (line.includes('[') && line.includes('](')) {
+                return `<div class="markdown-link">${line}</div>`;
+            } else {
+                return `<div>${line || ' '}</div>`;
+            }
+        }).join('');
+        
         return `
             <div class="slide" id="slide${slideNumber}">
                 <div class="header">
@@ -109,9 +130,22 @@ function generateProjectSlides() {
                     <div class="project-number">#${project.number}</div>
                     <div class="project-info">
                         <p class="project-description">Все подробности и код здесь:</p>
-                        <a href="${project.url}" class="project-link" target="_blank">
-                            ${project.url}
-                        </a>
+                        <div class="code-editor">
+                            <div class="code-editor-header">
+                                <div class="editor-tabs">
+                                    <span class="tab active">README.md</span>
+                                </div>
+                                <div class="editor-controls">
+                                    <span class="control red"></span>
+                                    <span class="control yellow"></span>
+                                    <span class="control green"></span>
+                                </div>
+                            </div>
+                            <div class="code-editor-content">
+                                <div class="line-numbers">${lineNumbers}</div>
+                                <div class="code-text">${codeLines}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,7 +165,7 @@ function generateFinalSlide() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="hello-text">&lt;GOODBYE /&gt;</h1>
+                <h1 class="hello-text">&lt;/ GOODBYE&gt;</h1>
             </div>
         </div>
     `;

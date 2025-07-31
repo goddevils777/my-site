@@ -10,49 +10,53 @@ function updateNavigationVariables() {
     slides = document.querySelectorAll('.slide');
 }
 
-// Показ конкретного слайда
+// Мгновенное переключение слайдов
 function showSlide(index) {
     if (!slides || slides.length === 0) {
-        console.log('Слайды еще не загружены');
         return;
     }
     
-    // Мгновенно убираем активные классы со всех слайдов
-    slides.forEach(slide => {
+    // Убираем все классы со всех слайдов
+    slides.forEach((slide, i) => {
         slide.classList.remove('active', 'prev');
+        
+        if (i === index) {
+            // Активный слайд
+            slide.style.transform = 'translateX(0)';
+            slide.style.opacity = '1';
+            slide.classList.add('active');
+        } else if (i < index) {
+            // Предыдущие слайды
+            slide.style.transform = 'translateX(-100%)';
+            slide.style.opacity = '0';
+        } else {
+            // Следующие слайды
+            slide.style.transform = 'translateX(100%)';
+            slide.style.opacity = '0';
+        }
     });
     
-    // Мгновенно добавляем активный класс текущему слайду
-    if (slides[index]) {
-        slides[index].classList.add('active');
-    }
-    
-    // Мгновенно добавляем класс prev предыдущему слайду
-    if (index > 0 && slides[index - 1]) {
-        slides[index - 1].classList.add('prev');
-    }
-    
-    // Мгновенно обновляем состояние кнопок навигации
     updateNavigationButtons();
 }
 
-// Переход к следующему слайду - убираем любые задержки
+
 function nextSlide() {
     currentSlide = (currentSlide + 1) % totalSlides;
-    showSlide(currentSlide); // Мгновенный вызов без setTimeout
+    showSlide(currentSlide);
+    saveCurrentSlide(); // Добавляем сохранение
 }
 
-// Переход к предыдущему слайду - убираем любые задержки  
 function prevSlide() {
     currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    showSlide(currentSlide); // Мгновенный вызов без setTimeout
+    showSlide(currentSlide);
+    saveCurrentSlide(); // Добавляем сохранение
 }
 
-// Переход к конкретному слайду по номеру
 function goToSlide(slideNumber) {
     if (slideNumber >= 0 && slideNumber < totalSlides) {
         currentSlide = slideNumber;
         showSlide(currentSlide);
+        saveCurrentSlide(); // Добавляем сохранение
     }
 }
 
@@ -96,3 +100,65 @@ function resetToFirstSlide() {
     currentSlide = 0;
     showSlide(0);
 }
+
+// Сохранение текущего слайда
+function saveCurrentSlide() {
+    localStorage.setItem('currentSlide', currentSlide.toString());
+}
+
+// Загрузка сохраненного слайда
+function loadSavedSlide() {
+    const saved = localStorage.getItem('currentSlide');
+    if (saved !== null) {
+        const slideNumber = parseInt(saved);
+        if (slideNumber >= 0 && slideNumber < totalSlides) {
+            console.log('Загружаем сохраненный слайд:', slideNumber);
+            currentSlide = slideNumber;
+            return slideNumber;
+        }
+    }
+    console.log('Сохраненный слайд не найден, используем первый');
+    currentSlide = 0;
+    return 0;
+}
+
+
+
+// Показ конкретного слайда с сохранением
+function showSlide(index) {
+    if (!slides || slides.length === 0) {
+        return;
+    }
+    
+    slides.forEach((slide, i) => {
+        slide.classList.remove('active', 'prev');
+        
+        if (i === index) {
+            slide.style.transform = 'translateX(0)';
+            slide.style.opacity = '1';
+            slide.classList.add('active');
+        } else if (i < index) {
+            slide.style.transform = 'translateX(-100%)';
+            slide.style.opacity = '0';
+        } else {
+            slide.style.transform = 'translateX(100%)';
+            slide.style.opacity = '0';
+        }
+    });
+    
+    updateNavigationButtons();
+}
+
+// Инициализация навигации с загрузкой сохраненного слайда
+function initNavigation() {
+    updateNavigationVariables();
+    
+    // Загружаем сохраненный слайд
+    const savedSlide = loadSavedSlide();
+    
+    console.log('Инициализация навигации - слайд:', savedSlide);
+    showSlide(savedSlide);
+}
+
+// Экспортируем новую функцию
+window.initNavigation = initNavigation;

@@ -427,7 +427,13 @@
                 <div class="form-group">
                     <label class="form-label" for="projectUrl">GitHub URL</label>
                     <input type="url" class="form-input" id="projectUrl" required 
-                           placeholder="https://github.com/username/repository">
+                        placeholder="https://github.com/username/repository">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="projectReadme">README текст</label>
+                    <textarea class="form-input" id="projectReadme" rows="6" 
+                            placeholder="# Название проекта&#10;&#10;Описание проекта...&#10;&#10;## Установка&#10;..."></textarea>
                 </div>
                 
                 <div class="form-actions">
@@ -665,6 +671,7 @@ function editProject(id) {
     document.getElementById('projectNumber').value = project.number;
     document.getElementById('projectTitle').value = project.title;
     document.getElementById('projectUrl').value = project.url;
+    document.getElementById('projectReadme').value = project.readme || '';
     document.getElementById('projectModal').classList.add('active');
 }
 
@@ -688,7 +695,8 @@ document.getElementById('projectForm').addEventListener('submit', function(e) {
     const formData = {
         number: parseInt(document.getElementById('projectNumber').value),
         title: document.getElementById('projectTitle').value,
-        url: document.getElementById('projectUrl').value
+        url: document.getElementById('projectUrl').value,
+        readme: document.getElementById('projectReadme').value || ''
     };
 
     if (currentEditingId) {

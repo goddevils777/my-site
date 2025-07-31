@@ -194,6 +194,43 @@ function setAnimationIntensity(level) {
     }, 500);
 }
 
+// Инициализация анимации
+function initAnimation() {
+    console.log('🎬 Инициализация анимации...');
+    
+    // Создаем контейнер для анимации если его нет
+    let background = document.getElementById("codeBackground");
+    if (!background) {
+        background = document.createElement("div");
+        background.id = "codeBackground";
+        background.className = "code-background";
+        document.body.insertBefore(background, document.body.firstChild);
+    }
+    
+    return true;
+}
+
+// Настройка анимации под размер экрана
+function adjustAnimationForScreen() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        setAnimationIntensity('low');
+    } else {
+        setAnimationIntensity('medium');
+    }
+}
+
+// Уничтожение анимации
+function destroyAnimation() {
+    stopCodeAnimation();
+    
+    const background = document.getElementById("codeBackground");
+    if (background) {
+        background.innerHTML = '';
+    }
+}
+
 
 console.log('🔧 animation.js загружен, экспортируем функции...');
 window.initAnimation = initAnimation;
