@@ -87,7 +87,7 @@ function generateBaseSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="big-text">ЭТИ&nbsp;ПРОЕКТЫ СКАЖУТ&nbsp;САМИ ЗА&nbsp;МЕНЯ</h1>
+                <h1 class="big-text">ЭТИ&nbsp;ПРОЕКТЫ СКАЖУТ&nbsp;САМИ ЗА&nbsp;МЕНЯ >>></h1>
             </div>
         </div>`
     ];
