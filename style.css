@@ -1181,3 +1181,49 @@
         color: rgba(0, 0, 0, 0.6);
     }
 }
+
+.session-warning {
+    color: #e74c3c !important;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+.no-session {
+    background: #ffe6e6 !important;
+    border: 2px solid #ff9999 !important;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    /* УБИРАЕМ transition чтобы не было задержки! */
+    /* transition: all 0.5s ease-in-out; ← УДАЛИТЕ ЭТУ СТРОКУ */
+    overflow-y: auto;
+    overflow-x: hidden;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    /* Добавляем быстрый transition только для активного слайда */
+    transition: all 0.2s ease-out;
+}
+
+.slide.prev {
+    transform: translateX(-100%);
+    /* Быстрый transition для предыдущего слайда */
+    transition: all 0.2s ease-out;
+}

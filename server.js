@@ -1,7 +1,6 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const url = require('url');
 
 const PORT = 8000;
 const PROJECTS_FILE = 'projects.json';
@@ -20,7 +19,8 @@ const mimeTypes = {
 
 // Создание сервера
 const server = http.createServer((req, res) => {
-    const parsedUrl = url.parse(req.url, true);
+    // Используем новый URL API вместо устаревшего url.parse()
+    const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
     const pathname = parsedUrl.pathname;
     
     // CORS заголовки
@@ -51,13 +51,16 @@ const server = http.createServer((req, res) => {
             if (error.code === 'ENOENT') {
                 res.writeHead(404);
                 res.end('Файл не найден');
+                console.log(`404: ${filePath}`);
             } else {
                 res.writeHead(500);
                 res.end('Ошибка сервера');
+                console.log(`500: ${error.message}`);
             }
         } else {
             res.writeHead(200, { 'Content-Type': contentType });
             res.end(content, 'utf-8');
+            console.log(`200: ${filePath}`);
         }
     });
 });
@@ -65,13 +68,16 @@ const server = http.createServer((req, res) => {
 // Обработка API проектов
 function handleProjectsAPI(req, res) {
     res.setHeader('Content-Type', 'application/json');
+    console.log(`API вызван: ${req.method}`);
     
     if (req.method === 'GET') {
         // Получение проектов
         fs.readFile(PROJECTS_FILE, 'utf8', (err, data) => {
             if (err) {
+                console.log('Файл projects.json не найден, отдаем пустой массив');
                 res.end('[]');
             } else {
+                console.log('Отдаем проекты из файла');
                 res.end(data);
             }
         });
@@ -91,11 +97,13 @@ function handleProjectsAPI(req, res) {
                 
                 fs.writeFile(PROJECTS_FILE, jsonData, 'utf8', (err) => {
                     if (err) {
+                        console.error('Ошибка записи файла:', err);
                         res.end(JSON.stringify({
                             success: false,
                             message: 'Ошибка записи файла'
                         }));
                     } else {
+                        console.log('Проекты успешно сохранены в файл');
                         res.end(JSON.stringify({
                             success: true,
                             message: 'Проекты сохранены'
@@ -104,6 +112,7 @@ function handleProjectsAPI(req, res) {
                 });
                 
             } catch (error) {
+                console.error('Ошибка парсинга JSON:', error);
                 res.end(JSON.stringify({
                     success: false,
                     message: 'Ошибка парсинга JSON'

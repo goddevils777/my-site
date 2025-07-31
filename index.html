@@ -22,128 +22,9 @@
     
 
     <!-- Контейнер для всех слайдов -->
-    <div class="slider-container">
-        <!-- Слайд 1 -->
-        <div class="slide active" id="slide1">
-            <div class="header">
-                <span class="emoji">😇</span>
-                <span class="text">God & Devils</span>
-                <span class="emoji">😈</span>
-            </div>
-            <div class="main">
-                <h1 class="hello-text">&lt;HELLO /&gt;</h1>
-            </div>
-        </div>
-        
-        <!-- Слайд 2 -->
-        <div class="slide" id="slide2">
-            <div class="header">
-                <span class="emoji">😇</span>
-                <span class="text">God & Devils</span>
-                <span class="emoji">😈</span>
-            </div>
-            <div class="main">
-                <h1 class="big-text">РЕАЛІЗУЮ БУДЬ-ЯКУ ІДЕЮ В КОДІ</h1>
-            </div>
-            
-        
-        </div>
-        
-        <!-- Слайд 3 -->
-        <div class="slide" id="slide3">
-            <div class="header">
-                <span class="emoji">😇</span>
-                <span class="text">God & Devils</span>
-                <span class="emoji">😈</span>
-            </div>
-            <div class="main">
-                <h1 class="big-text">СТВОРЮЮ БАГАТО ФУНКЦІОНАЛЬНІ WEB-СЕРВІСИ</h1>
-            </div>
-            
-    
-        </div>
-
-        <!-- Слайд 4 -->
-        <div class="slide" id="slide4">
-            <div class="header">
-                <span class="emoji">😇</span>
-                <span class="text">God & Devils</span>
-                <span class="emoji">😈</span>
-            </div>
-            <div class="main skills-content">
-                <h1 class="skills-title">БАЗОВІ ІНСТРУМЕНТИ</h1>
-                
-                <div class="skills-grid">
-                    <div class="skill-column">
-                        <h3>Backend:</h3>
-                        <p>Python<br>Flask<br>Node.js<br>Express.js<br>Telegram API<br>Session Management<br>ngrok</p>
-                    </div>
-                    
-                    <div class="skill-column">
-                        <h3>Frontend:</h3>
-                        <p>HTML5<br>CSS3<br>Vanilla JavaScript<br>Fetch API</p>
-                        
-                        <h3>Базы данных:</h3>
-                        <p>SQLite<br>LocalStorage<br>File Storage</p>
-                    </div>
-                    
-                    <div class="skill-column">
-                        <h3>Деплой:</h3>
-                        <p>ngrok<br>Local Development<br>File System<br>Любой другой сервер</p>
-                        
-                        <h3>API:</h3>
-                        <p>Telegram API<br>Любое другое API</p>
-                    </div>
-                    
-                    <div class="skill-column">
-                        <h3>Бібліотеки:</h3>
-                        <p>requests<br>sqlite3<br>telegram (gramJS)<br>@google/generative-ai<br>node-telegram-bot-api<br>input<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
-                    </div>
-                    
-                    <div class="skill-column">
-                        <h3>Формати:</h3>
-                        <p>UTF-8<br>ISO<br>JSON<br>StringSession</p>
-                    </div>
-                </div>
-            </div>
-            
-         
-        </div>
+   <div class="slider-container">
+        <!-- Все слайды будут генерироваться в JavaScript -->
     </div>
-
-    <!-- Слайд 5 -->
-        <div class="slide" id="slide5">
-            <div class="header">
-                <span class="emoji">😇</span>
-                <span class="text">God & Devils</span>
-                <span class="emoji">😈</span>
-            </div>
-            <div class="main">
-                <h1 class="big-text">МОЇ ПРОЕКТИ СКАЖУТЬ САМІ ЗА МЕНЕ</h1>
-            </div>
-            
-          
-        </div>
-
-
-        
-       
-
-   
-
-        <!-- Слайд 8 (финальный) -->
-        <div class="slide" id="slide8">
-            <div class="header">
-                <span class="emoji">😇</span>
-                <span class="text">God & Devils</span>
-                <span class="emoji">😈</span>
-            </div>
-            <div class="main">
-                <h1 class="hello-text">&lt;GOODBYE /&gt;</h1>
-            </div>
-            
-          
-        </div>
 
 <!-- Единые кнопки навигации -->
     <div class="navigation-controls">
@@ -158,7 +39,12 @@
         </div>
     </div>
   
-    <!-- Подключение внешнего JavaScript -->
-    <script src="script.js"></script>
+    <!-- Подключение модульных скриптов в правильном порядке -->
+    <script src="js/data.js"></script>        <!-- Данные проектов -->
+    <script src="js/slides.js"></script>      <!-- Генерация слайдов -->  
+    <script src="js/navigation.js"></script>  <!-- Навигация -->
+    <script src="js/events.js"></script>      <!-- События -->
+    <script src="js/animation.js"></script>   <!-- Анимация фона -->
+    <script src="js/main.js"></script>        <!-- Инициализация -->
 </body>
 </html>

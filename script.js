@@ -4,25 +4,13 @@ let projectsData = [];
 async function loadProjectsData() {
     console.log('Начинаем загрузку проектов...');
     try {
-        // Сначала пробуем загрузить через API
-        let response;
-        try {
-            response = await fetch('admin-api.php?t=' + Date.now());
-            if (response.ok) {
-                projectsData = await response.json();
-                console.log('Проекты загружены через API:', projectsData);
-            } else {
-                throw new Error('API недоступен');
-            }
-        } catch (apiError) {
-            console.log('API недоступен, загружаем из JSON файла...');
-            response = await fetch('projects.json?t=' + Date.now());
-            if (response.ok) {
-                projectsData = await response.json();
-                console.log('Проекты загружены из JSON:', projectsData);
-            } else {
-                throw new Error('Файлы недоступны');
-            }
+        // Загружаем из JSON файла
+        const response = await fetch('projects.json?t=' + Date.now());
+        if (response.ok) {
+            projectsData = await response.json();
+            console.log('Проекты загружены из JSON:', projectsData);
+        } else {
+            throw new Error('Файлы недоступны');
         }
         
         // Проверяем localStorage как резерв
@@ -103,7 +91,7 @@ function generateProjectSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="big-text">РЕАЛІЗУЮ БУДЬ-ЯКУ&nbsp;ВАШУ ІДЕЮ&nbsp;В&nbsp;КОДІ</h1>
+                <h1 class="big-text">РЕАЛИЗУЮ ЛЮБУЮ&nbsp;ВАШУ ИДЕЮ&nbsp;В&nbsp;КОДЕ</h1>
             </div>
         </div>`,
         
@@ -114,7 +102,7 @@ function generateProjectSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="big-text">СТВОРЮЮ&nbsp;БАГАТО ФУНКЦІОНАЛЬНІ WEB&#8209;СЕРВІСИ</h1>
+                <h1 class="big-text">СОЗДАЮ&nbsp;МНОГО ФУНКЦИОНАЛЬНЫЕ WEB&#8209;СЕРВИСЫ</h1>
             </div>
         </div>`,
         
@@ -126,7 +114,7 @@ function generateProjectSlides() {
             </div>
             <div class="main skills-main">
                 <div class="skills-content-wrapper">
-                    <h1 class="skills-title">БАЗОВІ ІНСТРУМЕНТИ</h1>
+                    <h1 class="skills-title">БАЗОВЫЕ ИНСТРУМЕНТЫ</h1>
                     <div class="skills-grid">
                         <div class="skill-column">
                             <h3>Backend:</h3>
@@ -145,11 +133,11 @@ function generateProjectSlides() {
                             <p>Telegram API<br>Любое другое API</p>
                         </div>
                         <div class="skill-column">
-                            <h3>Бібліотеки:</h3>
+                            <h3>Библиотеки:</h3>
                             <p>requests<br>sqlite3<br>telegram (gramJS)<br>@google/generative-ai<br>node-telegram-bot-api<br>input<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
                         </div>
                         <div class="skill-column">
-                            <h3>Формати:</h3>
+                            <h3>Форматы:</h3>
                             <p>UTF-8<br>ISO<br>JSON<br>StringSession</p>
                         </div>
                     </div>
@@ -164,7 +152,7 @@ function generateProjectSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="big-text">МОЇ&nbsp;ПРОЕКТИ СКАЖУТЬ&nbsp;САМІ ЗА&nbsp;МЕНЕ</h1>
+                <h1 class="big-text">МОИ&nbsp;ПРОЕКТЫ СКАЖУТ&nbsp;САМИ ЗА&nbsp;МЕНЯ</h1>
             </div>
         </div>`
     ];
@@ -186,7 +174,7 @@ function generateProjectSlides() {
                 <div class="main project-content">
                     <div class="project-number">#${project.number}</div>
                     <div class="project-info">
-                        <p class="project-description">Усі подробиці та код тут:</p>
+                        <p class="project-description">Все подробности и код здесь:</p>
                         <a href="${project.url}" class="project-link" target="_blank">
                             ${project.url}
                         </a>
@@ -283,7 +271,7 @@ function updateNavigationButtons() {
     }
 }
 
-// Обработка событий
+// Обработка событий касания
 let startX = 0;
 let startY = 0;
 let isSwiping = false;
@@ -330,6 +318,7 @@ document.addEventListener('touchend', function(e) {
     isSwiping = false;
 }, { passive: true });
 
+// Обработка колеса мыши
 let isScrolling = false;
 let scrollTimeout;
 
@@ -353,6 +342,7 @@ document.addEventListener('wheel', function(e) {
     }
 }, { passive: false });
 
+// Обработка мыши
 let mouseStartX = 0;
 
 document.addEventListener('mousedown', function(e) {
@@ -407,7 +397,9 @@ function createCodeElement() {
     const bounceAnimations = ["bounce-left", "bounce-right", "bounce-center"];
     const randomBounce = bounceAnimations[Math.floor(Math.random() * bounceAnimations.length)];
     
-    element.style.left = Math.random() * 80 + 10 + "%";
+    element.style.left = Math.random() * 90 + 5 + "%";
+    element.style.animationDelay = Math.random() * 3 + "s";
+    element.style.animationDuration = 6 + Math.random() * 6 + "s";
     
     background.appendChild(element);
     
@@ -415,48 +407,30 @@ function createCodeElement() {
         element.classList.add("animate", randomBounce);
     });
     
-    // Удаляем элементы после того, как они точно ушли за край
     setTimeout(function() {
         if (element.parentNode) {
             element.parentNode.removeChild(element);
         }
-    }, 12000); // Увеличил время, чтобы дать анимации завершиться
+    }, (parseFloat(element.style.animationDelay) + parseFloat(element.style.animationDuration) + 2) * 1000);
 }
 
 function startCodeAnimation() {
     setTimeout(function() {
-        // Создаем элементы с интервалом
+        // Создаем элементы с большими случайными интервалами
         for (let i = 0; i < 3; i++) {
-            setTimeout(createCodeElement, i * 1000);
+            setTimeout(createCodeElement, i * (1000 + Math.random() * 1000));
         }
         
-        // Продолжаем создавать элементы
-        setInterval(createCodeElement, 2000);
+        // Продолжаем создавать элементы с случайными интервалами
+        function createWithRandomInterval() {
+            createCodeElement();
+            const nextInterval = 1500 + Math.random() * 2000;
+            setTimeout(createWithRandomInterval, nextInterval);
+        }
+        
+        setTimeout(createWithRandomInterval, 3000);
+        
     }, 500);
-}
-
-// Загружаем проекты при загрузке страницы
-document.addEventListener('DOMContentLoaded', async function() {
-    // Убрал console.log
-    await loadProjectsData();
-    
-    // Убрал console.log
-    startCodeAnimation();
-});
-
-loadProjectsData();
-startCodeAnimation();
-
-function startCodeAnimation() {
-    console.log("Запуск анимации фона...");
-    
-    // Создаем меньше элементов сразу
-    for (let i = 0; i < 5; i++) {
-        setTimeout(createCodeElement, i * 800);
-    }
-    
-    // Создаем элементы реже
-    setInterval(createCodeElement, 1500); // Было 500, стало 1500
 }
 
 // Загружаем проекты при загрузке страницы
@@ -469,5 +443,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     startCodeAnimation();
 });
 
+// Также пробуем загрузить сразу
 loadProjectsData();
 startCodeAnimation();
