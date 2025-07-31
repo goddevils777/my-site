@@ -87,7 +87,7 @@ function generateBaseSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="big-text">МОИ&nbsp;ПРОЕКТЫ СКАЖУТ&nbsp;САМИ ЗА&nbsp;МЕНЯ</h1>
+                <h1 class="big-text">ПРОЕКТЫ СКАЖУТ&nbsp;САМИ ЗА&nbsp;МЕНЯ</h1>
             </div>
         </div>`
     ];
@@ -129,7 +129,7 @@ function generateProjectSlides() {
                 <div class="main project-content">
                     <div class="project-number">#${project.number}</div>
                     <div class="project-info">
-                        <p class="project-description">Все подробности и код здесь:</p>
+                        <p class="project-description">Все подробности здесь:</p>
                         <div class="code-editor">
                             <div class="code-editor-header">
                                 <div class="editor-tabs">
