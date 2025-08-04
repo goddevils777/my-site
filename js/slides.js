@@ -68,31 +68,55 @@ function generateBaseSlides() {
                 <div class="skills-content-wrapper">
                     <h1 class="skills-title">БАЗОВЫЕ ИНСТРУМЕНТЫ</h1>
                     <div class="skills-grid">
-                        <div class="skill-column">
-                            <h3>Backend:</h3>
-                            <p>Python<br>Flask<br>Node.js<br>Express.js<br>Telegram API<br>Session Management<br>ngrok</p>
-                        </div>
-                        <div class="skill-column">
-                            <h3>Frontend:</h3>
-                            <p>HTML5<br>CSS3<br>Vanilla JavaScript<br>Fetch API</p>
-                            <h3>Базы данных:</h3>
-                            <p>SQLite<br>LocalStorage<br>File Storage</p>
-                        </div>
-                        <div class="skill-column">
-                            <h3>Деплой:</h3>
-                            <p>ngrok<br>Local Development<br>File System<br>Любой другой сервер</p>
-                            <h3>API:</h3>
-                            <p>Telegram API<br>Любое другое API</p>
-                        </div>
-                        <div class="skill-column">
-                            <h3>Библиотеки:</h3>
-                            <p>requests<br>sqlite3<br>telegram (gramJS)<br>@google/generative-ai<br>node-telegram-bot-api<br>input<br>hashlib<br>hmac<br>time<br>urllib<br>datetime<br>re<br>os<br>sys</p>
-                        </div>
-                        <div class="skill-column">
-                            <h3>Форматы:</h3>
-                            <p>UTF-8<br>ISO<br>JSON<br>StringSession</p>
-                        </div>
-                    </div>
+    <div class="skill-column">
+        <h3>Backend Languages:</h3>
+        <p>Python<br>JavaScript/Node.js<br>PHP<br>Java<br>C#<br>Go<br>Rust<br>Ruby<br>Scala<br>Kotlin<br>Swift</p>
+        <h3>Frameworks:</h3>
+        <p>Flask<br>FastAPI<br>Django<br>Express.js<br>NestJS<br>Laravel<br>CodeIgniter<br>Spring Boot<br>.NET Core<br>Ruby on Rails</p>
+    </div>
+    <div class="skill-column">
+        <h3>Frontend Tech:</h3>
+        <p>HTML5<br>CSS3<br>JavaScript ES6+<br>TypeScript<br>React<br>Vue.js<br>Angular<br>Svelte<br>Next.js<br>Nuxt.js<br>Gatsby</p>
+        <h3>CSS Frameworks:</h3>
+        <p>Bootstrap<br>Tailwind CSS<br>Bulma<br>Foundation<br>Materialize<br>Semantic UI<br>SASS/SCSS<br>LESS<br>Styled Components</p>
+    </div>
+    <div class="skill-column">
+        <h3>Databases:</h3>
+        <p>MySQL<br>PostgreSQL<br>MongoDB<br>Redis<br>SQLite<br>Oracle<br>SQL Server<br>MariaDB<br>CouchDB<br>Neo4j<br>Elasticsearch</p>
+        <h3>Mobile & Desktop:</h3>
+        <p>React Native<br>Flutter<br>Ionic<br>Electron<br>Tauri<br>Xamarin<br>Cordova<br>PWA</p>
+    </div>
+    <div class="skill-column">
+        <h3>Cloud & DevOps:</h3>
+        <p>AWS<br>Google Cloud<br>Azure<br>DigitalOcean<br>Linode<br>Vultr<br>Docker<br>Kubernetes<br>Nginx<br>Apache<br>Caddy</p>
+        <h3>Deployment:</h3>
+        <p>Heroku<br>Railway<br>Vercel<br>Netlify<br>GitHub Pages<br>GitLab CI/CD<br>Jenkins<br>CircleCI</p>
+    </div>
+    <div class="skill-column">
+        <h3>APIs & Integration:</h3>
+        <p>REST API<br>GraphQL<br>WebSocket<br>gRPC<br>Telegram Bot API<br>Discord API<br>Twitter API<br>Instagram API<br>TikTok API<br>YouTube API<br>Spotify API</p>
+        <h3>Payment Systems:</h3>
+        <p>Stripe<br>PayPal<br>Square<br>Skrill</p>
+    </div>
+    <div class="skill-column">
+        <h3>AI & Machine Learning:</h3>
+        <p>OpenAI GPT<br>Google Gemini<br>Claude AI<br>TensorFlow<br>PyTorch<br>Scikit-learn<br>Pandas<br>NumPy<br>OpenCV<br>NLTK<br>spaCy</p>
+        <h3>Blockchain:</h3>
+        <p>Ethereum<br>Solidity<br>Web3.js<br>Smart Contracts<br>NFT Development<br>DeFi Protocols</p>
+    </div>
+    <div class="skill-column">
+        <h3>Tools & Software:</h3>
+        <p>Git<br>GitHub<br>GitLab<br>Bitbucket<br>VS Code<br>WebStorm<br>PyCharm<br>Postman<br>Insomnia<br>Figma<br>Photoshop</p>
+        <h3>Testing:</h3>
+        <p>Jest<br>Mocha<br>Cypress<br>Selenium<br>Pytest<br>PHPUnit<br>JUnit<br>Postman Tests</p>
+    </div>
+    <div class="skill-column">
+        <h3>Game Development:</h3>
+        <p>Unity<br>Unreal Engine<br>Godot<br>Phaser.js<br>Three.js<br>Babylon.js<br>C++<br>C#<br>Lua<br>GDScript</p>
+        <h3>IoT & Hardware:</h3>
+        <p>Arduino<br>Raspberry Pi<br>ESP32<br>MQTT<br>LoRaWAN<br>Sensors Integration</p>
+    </div>
+</div>
                 </div>
             </div>
             ${contactHTML}
