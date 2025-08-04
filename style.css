@@ -65,7 +65,7 @@
         /* Верхняя часть */
         .header {
             position: fixed;
-            top: 20px; /* Уменьшили отступ сверху */
+            top: 70px; /* Уменьшили отступ сверху */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -1443,5 +1443,54 @@
     .code-editor {
         max-width: 100%;
         overflow-x: auto;
+    }
+}
+
+/* Контактная информация */
+/* Контактная информация */
+.contact-info {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+}
+
+.telegram-contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 136, 204, 0.95);
+    color: white;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow: 0 3px 12px rgba(0, 136, 204, 0.25);
+    transition: all 0.2s ease;
+}
+
+.telegram-contact:hover {
+    background: rgba(0, 136, 204, 1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 136, 204, 0.35);
+}
+
+/* Адаптивность для контакта */
+@media (max-width: 768px) {
+    .contact-info {
+        bottom: 90px;
+    }
+    
+    .telegram-contact {
+        padding: 10px 15px;
+        font-size: 14px;
+        gap: 8px;
+    }
+    
+    .telegram-contact svg {
+        width: 16px;
+        height: 16px;
     }
 }

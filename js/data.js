@@ -26,7 +26,7 @@ async function loadProjectsData() {
         
         // Убеждаемся что проекты валидны
         projectsData = projectsData.filter(project => 
-            project && project.id && project.number && project.title && project.url
+            project && project.id && project.number && project.title
         );
         
         // Обновляем счетчик слайдов и перегенерируем

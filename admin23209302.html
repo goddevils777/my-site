@@ -426,8 +426,8 @@
                 
                 <div class="form-group">
                     <label class="form-label" for="projectUrl">GitHub URL</label>
-                    <input type="url" class="form-input" id="projectUrl" required 
-                        placeholder="https://github.com/username/repository">
+                    <input type="url" class="form-input" id="projectUrl" 
+    placeholder="https://github.com/username/repository (необязательно)">
                 </div>
                 
                 <div class="form-group">
@@ -591,7 +591,7 @@ async function loadProjects() {
 async function saveProjects() {
     try {
         const validProjects = projects.filter(project => 
-            project && project.id && project.number && project.title && project.url
+            project && project.id && project.number && project.title
         );
         
         if (validProjects.length !== projects.length) {
