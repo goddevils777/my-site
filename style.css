@@ -1421,6 +1421,7 @@
     .code-editor {
         font-size: 12px;
         margin-top: 0px;
+        text-align: left;
     }
     
     .line-numbers {
