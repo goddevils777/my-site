@@ -1500,7 +1500,7 @@
 /* Адаптивность для контакта */
 @media (max-width: 768px) {
     .contact-info {
-        bottom: 90px;
+        bottom: 25px;
     }
     
     .telegram-contact {
