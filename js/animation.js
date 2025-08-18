@@ -232,16 +232,57 @@ function destroyAnimation() {
 }
 
 // Анимация тряски Telegram кнопки каждые 7 секунд
+// Анимация тряски Telegram кнопки каждые 7 секунд
 function initTelegramShake() {
-    const telegramBtn = document.querySelector('.telegram-contact');
-    if (!telegramBtn) return;
+    console.log('🔍 Ищем видимую Telegram кнопку...');
 
-    setInterval(() => {
-        telegramBtn.classList.add('shake-active');
-        setTimeout(() => {
-            telegramBtn.classList.remove('shake-active');
-        }, 500);
-    }, 7000);
+    function getVisibleTelegramButton() {
+        const allButtons = document.querySelectorAll('.telegram-contact');
+        for (let btn of allButtons) {
+            const slide = btn.closest('.slide');
+            if (slide && slide.classList.contains('active')) {
+                return btn;
+            }
+        }
+        return allButtons[0]; // fallback на первую
+    }
+    
+    function doShake() {
+        const telegramBtn = getVisibleTelegramButton();
+        if (!telegramBtn) return;
+
+        console.log('📱 Запускаем тряску для видимой кнопки...');
+
+        // Сохраняем правильные стили кнопки
+        telegramBtn.style.display = 'inline-flex';
+        telegramBtn.style.alignItems = 'center';
+        telegramBtn.style.gap = '8px';
+
+        // Заметная тряска
+        let shakeCount = 0;
+        const shakeInterval = setInterval(() => {
+            if (shakeCount % 2 === 0) {
+                telegramBtn.style.transform = 'translateX(-5px)';
+            } else {
+                telegramBtn.style.transform = 'translateX(5px)';
+            }
+            shakeCount++;
+
+            if (shakeCount >= 8) {
+                clearInterval(shakeInterval);
+                telegramBtn.style.transform = 'translateX(0)';
+                console.log('📱 Тряска завершена');
+            }
+        }, 80);
+    }
+
+    // Первая тряска через 2 секунды
+    setTimeout(doShake, 2000);
+
+    // Повторяем каждые 7 секунд
+    setInterval(doShake, 7000);
+
+    console.log('⏰ Таймер тряски установлен');
 }
 
 

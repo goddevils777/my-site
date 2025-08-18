@@ -1517,18 +1517,52 @@
 
 /* Анимация тряски для Telegram кнопки */
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-    20%, 40%, 60%, 80% { transform: translateX(2px); }
-}
-
-.telegram-contact {
-    animation: shake 0.5s ease-in-out;
-    animation-iteration-count: 1;
-    animation-delay: 7s;
-    animation-fill-mode: both;
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(-5px) rotate(-2deg); }
+    50% { transform: translateX(5px) rotate(2deg); }
+    75% { transform: translateX(-3px) rotate(-1deg); }
 }
 
 .telegram-contact.shake-active {
-    animation: shake 0.5s ease-in-out;
+    animation: shake 0.6s ease-in-out !important;
+    display: inline-block !important;
+}
+
+/* Анимированные стрелочки */
+.animated-arrows {
+    display: inline-block;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.animated-arrows::after {
+    content: "👉";
+    animation: arrows-cycle 4s infinite;
+}
+
+@keyframes arrows-cycle {
+    0% { content: "👉"; }
+    20% { content: "👉👉"; }
+    40% { content: "👉👉👉"; }
+    60% { content: "👉👉👉👉"; }
+    80% { content: "👉👉👉👉👉"; }
+    100% { content: "👉"; }
+}
+
+/* Мобильная версия - эмодзи на новой строке */
+@media (max-width: 768px) {
+    .animated-arrows {
+        display: block;
+        margin-left: 0;
+        margin-top: 20px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .animated-arrows {
+        margin-top: 15px;
+        font-size: 0.7em;
+    }
 }

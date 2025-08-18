@@ -39,7 +39,7 @@ function generateBaseSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="big-text">РЕАЛИЗУЮ ЛЮБУЮ&nbsp;ВАШУ ИДЕЮ&nbsp;В&nbsp;КОДЕ</h1>
+                <h1 class="big-text">РЕАЛИЗУЮ ЛЮБУЮ&nbsp;ВАШУ ИДЕЮ&nbsp;В&nbsp;КОДЕ <span class="animated-arrows"></span></h1>
             </div>
             ${contactHTML}
         </div>`,
@@ -52,7 +52,7 @@ function generateBaseSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="big-text">СОЗДАЮ&nbsp;МНОГО ФУНКЦИОНАЛЬНЫЕ WEB&#8209;СЕРВИСЫ</h1>
+                <h1 class="big-text">СОЗДАЮ&nbsp;МНОГО ФУНКЦИОНАЛЬНЫЕ WEB&#8209;СЕРВИСЫ <span class="animated-arrows"></span></h1>
             </div>
             ${contactHTML}
         </div>`,
@@ -130,7 +130,7 @@ function generateBaseSlides() {
                 <span class="emoji">😈</span>
             </div>
             <div class="main">
-                <h1 class="big-text">ЭТИ&nbsp;ПРОЕКТЫ СКАЖУТ&nbsp;САМИ ЗА&nbsp;МЕНЯ >>></h1>
+                <h1 class="big-text">ЭТИ&nbsp;ПРОЕКТЫ СКАЖУТ&nbsp;САМИ ЗА&nbsp;МЕНЯ <span class="animated-arrows"></span></h1>
             </div>
             ${contactHTML}
         </div>`
