@@ -2,7 +2,7 @@
 
 // Массивы элементов для анимации
 const codeElementsArray = [
-    "</>", "<div>", "</div>", "<script>", "</script>", "@app", ".JSON", 
+    "</>", "<div>", "</div>", "<script>", "</script>", "@app", ".JSON",
     "const", "let", "var", "function", "return", "if", "else", "try", "catch",
     "{}", "[]", "()", "=>", "&&", "||", "==", "!=", "++", "--",
     "async", "await", "fetch", "API", "JSON", "HTML", "CSS", "JS",
@@ -24,13 +24,13 @@ function createCodeElement() {
         console.warn('Фон для анимации не найден');
         return;
     }
-    
+
     const element = document.createElement("div");
     element.className = "code-element";
-    
+
     // Случайный выбор между кодом и эмодзи
     const isEmoji = Math.random() < 0.3;
-    
+
     if (isEmoji) {
         element.textContent = getRandomEmoji();
         element.classList.add("emoji");
@@ -38,21 +38,21 @@ function createCodeElement() {
         element.textContent = getRandomCodeElement();
         element.classList.add(getRandomSize());
     }
-    
+
     // Применяем случайную анимацию
     applyRandomAnimation(element);
-    
+
     // Устанавливаем случайную позицию
     setRandomPosition(element);
-    
+
     // Добавляем в DOM
     background.appendChild(element);
-    
+
     // Запускаем анимацию
     requestAnimationFrame(() => {
         element.classList.add("animate", getRandomBounceAnimation());
     });
-    
+
     // Удаляем элемент после завершения анимации
     scheduleElementRemoval(element);
 }
@@ -84,10 +84,10 @@ function applyRandomAnimation(element) {
     // Случайные задержка и длительность
     const delay = Math.random() * 3; // 0-3 секунды
     const duration = 6 + Math.random() * 6; // 6-12 секунд
-    
+
     element.style.animationDelay = delay + "s";
     element.style.animationDuration = duration + "s";
-    
+
     return { delay, duration };
 }
 
@@ -103,7 +103,7 @@ function scheduleElementRemoval(element) {
     const delay = parseFloat(element.style.animationDelay) || 0;
     const duration = parseFloat(element.style.animationDuration) || 6;
     const totalTime = (delay + duration + 2) * 1000; // +2 секунды запас
-    
+
     setTimeout(() => {
         if (element.parentNode) {
             element.parentNode.removeChild(element);
@@ -114,9 +114,9 @@ function scheduleElementRemoval(element) {
 // Создание элементов с случайными интервалами
 function createElementsWithRandomInterval() {
     if (!animationRunning) return;
-    
+
     createCodeElement();
-    
+
     // Следующий элемент через случайный интервал
     const nextInterval = 1500 + Math.random() * 2000; // 1.5-3.5 секунд
     setTimeout(createElementsWithRandomInterval, nextInterval);
@@ -128,15 +128,15 @@ function startCodeAnimation() {
         console.log('Анимация уже запущена');
         return;
     }
-    
+
     console.log("Запуск анимации фона...");
     animationRunning = true;
-    
+
     // Создаем несколько элементов сразу с разными задержками
     for (let i = 0; i < 3; i++) {
         setTimeout(createCodeElement, i * (1000 + Math.random() * 1000));
     }
-    
+
     // Запускаем непрерывное создание элементов
     setTimeout(createElementsWithRandomInterval, 3000);
 }
@@ -145,11 +145,11 @@ function startCodeAnimation() {
 function stopCodeAnimation() {
     console.log("Остановка анимации фона...");
     animationRunning = false;
-    
+
     // Очищаем все интервалы
     animationIntervals.forEach(interval => clearInterval(interval));
     animationIntervals = [];
-    
+
     // Удаляем все существующие элементы анимации
     const background = document.getElementById("codeBackground");
     if (background) {
@@ -177,19 +177,19 @@ function setAnimationIntensity(level) {
         medium: { elements: 3, interval: [1500, 3500] },
         high: { elements: 5, interval: [800, 2000] }
     };
-    
+
     const config = settings[level] || settings.medium;
-    
+
     // Перезапускаем с новыми настройками
     stopCodeAnimation();
-    
+
     setTimeout(() => {
         animationRunning = true;
-        
+
         for (let i = 0; i < config.elements; i++) {
             setTimeout(createCodeElement, i * 500);
         }
-        
+
         setTimeout(createElementsWithRandomInterval, 2000);
     }, 500);
 }
@@ -197,7 +197,7 @@ function setAnimationIntensity(level) {
 // Инициализация анимации
 function initAnimation() {
     console.log('🎬 Инициализация анимации...');
-    
+
     // Создаем контейнер для анимации если его нет
     let background = document.getElementById("codeBackground");
     if (!background) {
@@ -206,14 +206,14 @@ function initAnimation() {
         background.className = "code-background";
         document.body.insertBefore(background, document.body.firstChild);
     }
-    
+
     return true;
 }
 
 // Настройка анимации под размер экрана
 function adjustAnimationForScreen() {
     const isMobile = window.innerWidth <= 768;
-    
+
     if (isMobile) {
         setAnimationIntensity('low');
     } else {
@@ -224,12 +224,26 @@ function adjustAnimationForScreen() {
 // Уничтожение анимации
 function destroyAnimation() {
     stopCodeAnimation();
-    
+
     const background = document.getElementById("codeBackground");
     if (background) {
         background.innerHTML = '';
     }
 }
+
+// Анимация тряски Telegram кнопки каждые 7 секунд
+function initTelegramShake() {
+    const telegramBtn = document.querySelector('.telegram-contact');
+    if (!telegramBtn) return;
+
+    setInterval(() => {
+        telegramBtn.classList.add('shake-active');
+        setTimeout(() => {
+            telegramBtn.classList.remove('shake-active');
+        }, 500);
+    }, 7000);
+}
+
 
 
 console.log('🔧 animation.js загружен, экспортируем функции...');
@@ -240,3 +254,4 @@ window.restartCodeAnimation = restartCodeAnimation;
 window.setAnimationIntensity = setAnimationIntensity;
 window.adjustAnimationForScreen = adjustAnimationForScreen;
 window.destroyAnimation = destroyAnimation;
+window.initTelegramShake = initTelegramShake;
