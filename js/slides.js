@@ -64,9 +64,9 @@ function generateBaseSlides() {
                 <span class="text">God & Devils</span>
                 <span class="emoji">😈</span>
             </div>
+            <h1 class="skills-title">БАЗОВЫЕ ИНСТРУМЕНТЫ</h1>
             <div class="main skills-main">
                 <div class="skills-content-wrapper">
-                    <h1 class="skills-title">БАЗОВЫЕ ИНСТРУМЕНТЫ</h1>
                     <div class="skills-grid">
     <div class="skill-column">
         <h3>Backend Languages:</h3>

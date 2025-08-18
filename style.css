@@ -932,7 +932,7 @@
             .skills-title {
                 font-size: 28px;
                 margin-bottom: 25px;
-                padding-top: 30px;
+                margin-top: 30px;
             }
         }
 
@@ -973,7 +973,7 @@
 
         @media (max-width: 480px) {
             .skills-main {
-                padding: 80px 15px 50px 15px;
+                padding: 50px 15px 50px 15px;
                  height: auto;
             }
             
