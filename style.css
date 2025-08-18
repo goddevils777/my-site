@@ -906,7 +906,7 @@
 
         @media (max-width: 480px) {
             .header {
-                top: 10px;
+                top: 30px;
             }
             
             .skills-content {
