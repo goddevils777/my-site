@@ -772,7 +772,7 @@
 
         @media (max-width: 480px) {
             .main {
-                margin-top: 20px;
+                margin-top: 0px;
             }
             
             .skills-content {
@@ -1420,7 +1420,7 @@
 @media (max-width: 768px) {
     .code-editor {
         font-size: 12px;
-        margin-top: 15px;
+        margin-top: 0px;
     }
     
     .line-numbers {
