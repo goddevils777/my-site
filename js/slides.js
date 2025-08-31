@@ -136,6 +136,7 @@ function generateBaseSlides() {
         </div>`
     ];
 }
+
 function generateProjectSlides() {
     const projects = getProjectsData();
     const contactHTML = getContactHTML();
@@ -173,7 +174,7 @@ function generateProjectSlides() {
                 <div class="main project-content">
                     <div class="project-number">#${project.number}</div>
                     <div class="project-info">
-                        <p class="project-description">Все подробности здесь:</p>
+                        <p class="project-description">${project.title}</p>
                         <div class="code-editor">
                             <div class="code-editor-header">
                                 <div class="editor-tabs">
